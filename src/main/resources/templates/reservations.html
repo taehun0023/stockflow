@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - 予約一覧</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+
+</head>
+<body class="bg-mesh min-h-screen font-sans flex overflow-x-hidden">
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="w-64 bg-white border-r border-slate-100 flex flex-col fixed h-full z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+            
+        <div class="h-16 flex items-center px-6 border-b border-transparent mt-2">
+            <a href="/" class="flex items-center gap-3">
+                <div class="h-8 w-8 bg-black rounded flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <span class="text-[15px] font-bold text-slate-900 tracking-tight">備品管理システム</span>
+            </a>
+        </div>
+
+                                <nav class="flex-1 space-y-1 px-3 py-4 overflow-y-auto custom-scrollbar">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="text-sm">管理者ダッシュボード</span>
+            </a>
+            <a href="/mypage" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <span class="text-sm">利用者ダッシュボード</span>
+            </a>
+            <a href="/rentals-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(社員)</span>
+            </a>
+            <a href="/rentals" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(管理者)</span>
+            </a>
+            <a href="/reservations-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(社員)</span>
+            </a>
+            <a href="/reservations" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-50 text-sky-600 font-bold transition-all group shadow-sm ring-1 ring-slate-200/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(管理者)</span>
+            </a>
+            <a href="/requests-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(社員)</span>
+            </a>
+            <a href="/requests" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(管理者)</span>
+            </a>
+            <a href="/equipments" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                <span class="text-sm">在庫管理</span>
+            </a>
+            <a href="/employees" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span class="text-sm">利用者管理</span>
+            </a>
+            <a href="/settings" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-sm">システム設定</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
+            <div class="shrink-0 flex items-center justify-between">
+                <a href="/profile" class="flex items-center gap-3 group hover:bg-slate-50/80 p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : `山`}">山</div>
+                    <div class="flex flex-col truncate">
+                        <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate" th:text="${user.name}">山田 太郎</span>
+                        <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user.email}">user@example.com</span>
+                    </div>
+                </a>
+                <a href="/logout" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-50 block"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></a>
+            </div>
+        </div>
+    
+        </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 lg:ml-64 min-w-0 flex flex-col min-h-screen">
+        
+        <header class="h-16 bg-white border-b border-slate-100 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-40 shrink-0">
+            <!-- Left: Toggle & Search -->
+            <div class="flex items-center gap-3 flex-1">
+                <button onclick="toggleSidebar()" class="lg:hidden shrink-0 flex items-center justify-center p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <div class="hidden md:flex shrink-0 items-center gap-2 bg-slate-50/80 px-4 py-2 rounded-xl border border-transparent focus-within:bg-white focus-within:border-slate-300 focus-within:shadow-sm transition-all w-80">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <input type="text" placeholder="検索..." class="bg-transparent border-none outline-none text-[13px] w-full placeholder:text-slate-400 text-slate-900 font-medium">
+                </div>
+            </div>
+
+            <!-- Right items -->
+            <div class="shrink-0 flex items-center gap-3 sm:gap-4 ml-4">
+                <div class="hidden sm:block text-right font-bold text-slate-900 tracking-tight text-[13px] font-mono" id="realtimeClock">2026-04-21 14:35</div>
+                <div class="hidden sm:block h-8 w-px bg-slate-200 mx-2"></div>
+                <button class="relative p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-[#ea4335] rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+        
+        <main class="p-4 lg:p-10 w-full max-w-[1400px] mx-auto flex-1">
+            
+            <div class="max-w-7xl mx-auto space-y-6">
+
+                <!-- Header Actions & Filters -->
+                <div class="flex flex-wrap justify-between items-center gap-4 bg-white/40 glass-card rounded-2xl p-4 px-6">
+                    <div class="flex flex-wrap items-center gap-3 shrink-0">
+                        <div class="relative w-48">
+                            <input type="text" placeholder="キーワード検索..." class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
+                            <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <div class="relative w-64">
+                            <input type="text" id="dateRangeFilter" placeholder="期間範囲 (開始日 ~ 終了日)" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
+                            <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-40 p-2.5 outline-none font-medium">
+                            <option value="">予約状態</option>
+                            <option value="Active">予約中</option>
+                            <option value="Delayed">予約中(遅延)</option>
+                            <option value="Cancelled">取消済</option>
+                            <option value="Expired">失効済</option>
+                        </select>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-40 p-2.5 outline-none font-medium">
+                            <option value="">対象備品</option>
+                            <option value="PC">PC</option>
+                            <option value="Monitor">モニター</option>
+                            <option value="License">ライセンス</option>
+                        </select>
+                    </div>
+                    <div class="shrink-0 flex items-center gap-3 shrink-0 ml-auto">
+                        <a href="/rental-apply" class="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            新規予約(管理者代理)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Table Card -->
+                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-17rem)]">
+                    <div class="px-10 py-6 border-b border-slate-200/50 bg-white/40 shrink-0 flex justify-between items-center">
+                        <h2 class="text-xl font-black text-slate-900 tracking-tight">予約一覧(管理者)</h2>
+                        <span class="text-xs font-bold text-slate-500">※ 予約開始日を過ぎて貸出移行していない予約は「失効」が可能です。</span>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div class="flex-1 overflow-auto bg-white/20">
+                        <div class="overflow-x-auto"><table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-100/50 sticky top-0 z-10 lg:text-sm text-xs">
+                                <tr>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">予約ID</th>
+                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">対象備品名</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28 w-max">予約者名</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">利用開始日</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">利用終了日</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-16">数量</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-24">状態</th>
+                                                                        <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-36">アクション</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200/50 bg-white/40 lg:text-sm text-xs">
+                                
+                                <!-- Row 1: Active Booking -->
+                                <tr class="hover:bg-white/80 transition-colors" data-start-date="2026-04-20 09:00">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/reservation-detail?id=B-260501" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold">B-260501</a>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
+                                        <p class="font-bold text-slate-900">MacBook Pro 16インチ</p>
+                                    </div></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">鈴木 一郎</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-900 font-bold">2026/04/20 09:00</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-900 font-bold">2026/04/25 18:00</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="font-bold text-slate-900">1</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-sky-100 text-sky-700 border border-sky-200">
+                                            予約中
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
+                                        <div class="shrink-0 flex items-center justify-center gap-2 w-full">
+                                            <button onclick="openLendModal('B-260501')" style="display: none" class="lend-btn px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">貸出</button>
+                                            <button onclick="openCancelModal('B-260501', '鈴木 一郎')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">取消</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 2: Expired candidate -->
+                                <tr class="hover:bg-amber-50/50 bg-amber-50/20 transition-colors" data-start-date="2026-04-12 09:00">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/reservation-detail?id=B-260492" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold">B-260492</a>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
+                                        <p class="font-bold text-slate-900">プロジェクター EPSON EH-TW</p>
+                                    </div></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">山田 太郎</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-amber-700 font-bold">2026/04/12 09:00</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-900 font-bold">2026/04/15 18:00</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="font-bold text-slate-900">1</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                                            予約中(遅延)
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
+                                        <div class="shrink-0 flex items-center justify-center gap-1.5 w-full">
+                                            <button onclick="openLendModal('B-260492')" style="display: none" class="lend-btn px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">貸出</button>
+                                            <button onclick="openCancelModal('B-260492', '山田 太郎')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">取消</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3: Cancelled -->
+                                <tr class="hover:bg-slate-50/50 bg-slate-50/30 transition-colors opacity-60">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-400 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/reservation-detail?id=B-260410" class="text-slate-400 hover:text-slate-500 underline underline-offset-2 font-bold">B-260410</a>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
+                                        <p class="font-bold text-slate-500">ワイヤレスマイクセット</p>
+                                    </div></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">山田 花子</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="font-bold text-slate-400">1</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">
+                                            取消済
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
+                                        <span class="text-[11px] font-bold text-slate-400">-</span>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 4: Lapsed/Expired -->
+                                <tr class="hover:bg-slate-50/50 bg-slate-50/30 transition-colors opacity-60">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-400 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/reservation-detail?id=B-260399" class="text-slate-400 hover:text-slate-500 underline underline-offset-2 font-bold">B-260399</a>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
+                                        <p class="font-bold text-slate-500">Wacom 液晶ペンタブレット</p>
+                                    </div></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">高橋 健太</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="font-bold text-slate-400">1</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-200 text-slate-600 border border-slate-300">
+                                            失効済
+                                        </span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
+                                        <span class="text-[11px] font-bold text-slate-400">システム失効処理済</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div>
+                    </div>
+                </div>
+            </div>
+        
+        </main>
+    </div>
+
+    <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    // Modal behavior fix for mobile
+    function openDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    function closeDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - エンタープライズ認証</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-8 relative overflow-hidden font-sans">
+    <!-- Background Image with Blur -->
+    <div class="bg-image"></div>
+    
+    <!-- Overlay for better contrast -->
+    <div class="absolute inset-0 bg-slate-900/30 pointer-events-none"></div>
+
+    <div class="w-full max-w-[420px] glass rounded-3xl sm:rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)] p-6 sm:p-10 space-y-6 relative z-10">
+        <div class="text-center">
+            <div class="mx-auto h-16 w-16 bg-sky-500 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-sky-400/30">
+                <!-- Corporate Building Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-1">Enterprise Portal</h2>
+            <p class="text-[13px] font-medium text-slate-700">管理者から発行されたIDでログインしてください</p>
+        </div>
+
+        <form class="mt-8 space-y-5" th:action="@{/login}" method="POST">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">メールアドレス</label>
+                    <input type="email" name="email" required 
+                        class="block w-full px-5 py-3.5 border border-white/50 rounded-2xl focus:ring-4 focus:ring-sky-400/20 focus:border-sky-400 outline-none bg-white/60 transition-all placeholder:text-slate-400 text-sm" 
+                        placeholder="example@company.com">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">パスワード</label>
+                    <input type="password" name="password" required 
+                        class="block w-full px-5 py-3.5 border border-white/50 rounded-2xl focus:ring-4 focus:ring-sky-400/20 focus:border-sky-400 outline-none bg-white/60 transition-all placeholder:text-slate-400 text-sm" 
+                        placeholder="••••••••">
+                </div>
+            </div>
+
+            <div th:if="${showError}" class="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-600 text-[11px] font-bold flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span th:text="${error}"></span>
+            </div>
+            <div th:if="${showSuccess}" class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[11px] font-bold flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span th:text="${success}"></span>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-sky-500 text-white font-bold rounded-2xl hover:bg-sky-600 shadow-xl shadow-sky-400/40 transition-all active:scale-[0.98] tracking-widest text-sm">
+                ログイン
+            </button>
+        </form>
+
+        <div class="mt-4 text-center text-xs">
+            <a href="/forgot-password" class="text-indigo-600 hover:text-indigo-500 font-bold">パスワードをお忘れですか？</a>
+        </div>
+
+        <div class="mt-6">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-300/30"></div></div>
+                <div class="relative flex justify-center text-[10px] font-bold uppercase tracking-widest text-slate-500"><span class="px-4 bg-transparent">またはSNSでログイン</span></div>
+            </div>
+            <div class="mt-5 grid grid-cols-3 gap-2.5">
+                <a href="/onboarding" class="flex justify-center items-center py-3 border border-white/50 rounded-xl bg-white/30 hover:bg-white/50 transition-all">
+                    <!-- Google Logo -->
+                    <svg class="h-5 w-5" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-1 .67-2.28 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                </a>
+                <a href="/onboarding" class="flex justify-center items-center py-3 border border-white/50 rounded-xl bg-white/30 hover:bg-white/50 transition-all">
+                    <!-- Apple Logo -->
+                    <svg class="h-5 w-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.05 20.28c-.98.95-2.05 1.61-3.22 1.61-1.14 0-1.55-.67-2.91-.67-1.38 0-1.85.65-2.91.65-1.14 0-2.24-.74-3.23-1.71C2.73 18.11 1.5 14.73 1.5 11.66c0-3.13 2.03-4.79 4-4.79 1.03 0 2.01.42 2.64.42.61 0 1.76-.45 2.97-.45 1.26 0 2.39.46 3.13 1.18-2.48 1.44-2.08 4.79.4 5.81-1.01 2.44-2.5 5.36-3.59 6.45zM12.03 7.25c-.02-2.23 1.84-4.04 4.06-4.09.03 2.2-1.87 4.1-4.06 4.09z"/>
+                    </svg>
+                </a>
+                <a href="/onboarding" class="flex justify-center items-center py-3 border border-white/50 rounded-xl bg-white/30 hover:bg-white/50 transition-all">
+                    <!-- LINE Logo -->
+                    <svg class="h-5 w-5" fill="#00B900" viewBox="0 0 24 24">
+                        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975 1.766-1.97 2.547-3.967 2.547-5.968zm-14.5 3.473h-2.103c-.308 0-.559-.25-.559-.558v-4.444c0-.309.25-.558.559-.558h2.103c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559h-1.544v.933h1.544c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559h-1.544v.933h1.544c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559zm3.922 0h-2.103c-.308 0-.559-.25-.559-.558v-4.444c0-.309.25-.558.559-.558h.559c.309 0 .559.25.559.558v3.886h.985c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559zm2.682 0h-.559c-.308 0-.559-.25-.559-.558v-4.444c0-.309.25-.558.559-.558h.559c.309 0 .559.25.559.558v4.444c0 .309-.25.558-.559.558zm5.162 0h-2.103c-.308 0-.559-.25-.559-.558v-4.444c0-.309.25-.558.559-.558h.559c.309 0 .559.25.559.558v3.327l1.544-3.327c.121-.26.331-.558.559-.558h.559c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559l-1.122 2.414 1.122 2.414c.121.26.331.558.559.558h.559c.309 0 .559.25.559.558v.373c0 .309-.25.559-.559.559z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="pt-6 text-center">
+            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">© 2026 Enterprise Security Systems</p>
+        </div>
+    </div>
+
+    <!-- Notification Details Modal -->
+    <div id="notifModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeNotifModal()"></div>
+        <div class="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl p-6 transform scale-95 opacity-0 transition-all duration-200" id="notifModalContent">
+            
+            <button type="button" onclick="closeNotifModal()" class="absolute top-4 right-4 p-1.5 bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-900 rounded-full transition-colors z-10 outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5 pr-6">
+                <div id="notifModalIcon" class="h-10 w-10 rounded-full flex items-center justify-center shrink-0">
+                    <!-- Icon inject -->
+                </div>
+                <h3 class="text-[15px] font-black text-slate-900 leading-snug" id="notifModalTitle">Notification</h3>
+            </div>
+            
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 mb-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-slate-300" id="notifModalDeco"></div>
+                <p class="text-[13px] font-medium text-slate-700 leading-relaxed" id="notifModalBody">Body context</p>
+            </div>
+            
+            <button onclick="closeNotifModal()" class="w-full py-3 bg-slate-900 text-white text-[13px] font-bold rounded-xl hover:bg-slate-800 shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all focus:outline-none focus:ring-4 focus:ring-slate-200">内容を確認しました</button>
+        </div>
+    </div>
+
+    <script id="globalNotifScript">
+        function toggleNotifications() {
+            const panel = document.getElementById('notificationPanel');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('opacity-0', 'scale-95'), 10);
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        let unreadCount = 3;
+        function updateBadge() {
+            const badge = document.getElementById('notifBadge');
+            if(badge) {
+                if (unreadCount > 0) {
+                    badge.innerText = unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+
+        function openNotificationDetail(btn, type, title, body) {
+            // mark as read visually
+            const dot = btn.querySelector('.notif-dot');
+            if (dot && !dot.classList.contains('hidden')) {
+                dot.classList.add('hidden');
+                btn.classList.remove('bg-red-50/40', 'bg-sky-50/50');
+                const titleEl = btn.querySelector('.notif-title');
+                if(titleEl) {
+                    titleEl.classList.remove('text-slate-900');
+                    titleEl.classList.add('text-slate-500');
+                }
+                unreadCount--;
+                updateBadge();
+            }
+
+            // toggle panel off
+            const panel = document.getElementById('notificationPanel');
+            if(panel) panel.classList.add('hidden');
+
+            // Open modal
+            document.getElementById('notifModalTitle').innerText = title;
+            document.getElementById('notifModalBody').innerText = body;
+            
+            const iconContainer = document.getElementById('notifModalIcon');
+            const decoLine = document.getElementById('notifModalDeco');
+            
+            if(type === 'overdue') {
+                iconContainer.className = "h-10 w-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 border border-red-200/50";
+                iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>';
+                decoLine.className = "absolute top-0 left-0 w-1 h-full bg-red-500";
+            } else if(type === 'approaching') {
+                iconContainer.className = "h-10 w-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 border border-sky-200/50";
+                iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                decoLine.className = "absolute top-0 left-0 w-1 h-full bg-sky-500";
+            } else if(type === 'cancelled') {
+                iconContainer.className = "h-10 w-10 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 border border-slate-200";
+                iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
+                decoLine.className = "absolute top-0 left-0 w-1 h-full bg-slate-400";
+            } else {
+                iconContainer.className = "h-10 w-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 border border-green-200/50";
+                iconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+                decoLine.className = "absolute top-0 left-0 w-1 h-full bg-green-500";
+            }
+
+            const modal = document.getElementById('notifModal');
+            const content = document.getElementById('notifModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeNotifModal() {
+            const modal = document.getElementById('notifModal');
+            const content = document.getElementById('notifModalContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 200);
+        }
+
+        function markAllAsRead() {
+            const dots = document.querySelectorAll('.notif-dot');
+            dots.forEach(dot => dot.classList.add('hidden'));
+            
+            const btns = document.querySelectorAll('#notificationList button');
+            btns.forEach(btn => {
+                btn.classList.remove('bg-red-50/40', 'bg-sky-50/50');
+                const titleEl = btn.querySelector('.notif-title');
+                if(titleEl) {
+                    titleEl.classList.remove('text-slate-900');
+                    titleEl.classList.add('text-slate-500');
+                }
+            });
+
+            unreadCount = 0;
+            updateBadge();
+        }
+        
+        // Hide dropdown on click outside
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('notificationDropdownContainer');
+            const panel = document.getElementById('notificationPanel');
+            if (container && panel && !panel.classList.contains('hidden') && !container.contains(e.target)) {
+                panel.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

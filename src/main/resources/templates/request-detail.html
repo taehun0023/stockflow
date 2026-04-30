@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - 要望詳細(管理者)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+</head>
+<body class="bg-mesh min-h-screen font-sans flex overflow-x-hidden">
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="w-64 bg-white border-r border-slate-100 flex flex-col fixed h-full z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+            
+        <div class="h-16 flex items-center px-6 border-b border-transparent mt-2">
+            <a href="/" class="flex items-center gap-3">
+                <div class="h-8 w-8 bg-black rounded flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <span class="text-[15px] font-bold text-slate-900 tracking-tight">備品管理システム</span>
+            </a>
+        </div>
+
+                                <nav class="flex-1 space-y-1 px-3 py-4 overflow-y-auto custom-scrollbar">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="text-sm">管理者ダッシュボード</span>
+            </a>
+            <a href="/mypage" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <span class="text-sm">利用者ダッシュボード</span>
+            </a>
+            <a href="/rentals-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(社員)</span>
+            </a>
+            <a href="/rentals" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(管理者)</span>
+            </a>
+            <a href="/reservations-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(社員)</span>
+            </a>
+            <a href="/reservations" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(管理者)</span>
+            </a>
+            <a href="/requests-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(社員)</span>
+            </a>
+            <a href="/requests" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-50 text-sky-600 font-bold transition-all group shadow-sm ring-1 ring-slate-200/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(管理者)</span>
+            </a>
+            <a href="/equipments" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                <span class="text-sm">在庫管理</span>
+            </a>
+            <a href="/employees" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span class="text-sm">利用者管理</span>
+            </a>
+            <a href="/settings" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-sm">システム設定</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
+            <div class="shrink-0 flex items-center justify-between">
+                <a href="/profile" class="flex items-center gap-3 group hover:bg-slate-50/80 p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors">管</div>
+                    <div class="flex flex-col truncate">
+                        <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate">管理者 太郎</span>
+                        <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user.email}">user@example.com</span>
+                    </div>
+                </a>
+                <a href="/logout" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-50 block"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></a>
+            </div>
+        </div>
+    
+        </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 lg:ml-64 min-w-0 flex flex-col min-h-screen">
+        
+        <header class="h-16 bg-white border-b border-slate-100 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-40 shrink-0">
+            <!-- Left: Toggle & Search -->
+            <div class="flex items-center gap-3 flex-1">
+                <button onclick="toggleSidebar()" class="lg:hidden shrink-0 flex items-center justify-center p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <div class="hidden md:flex shrink-0 items-center gap-2 bg-slate-50/80 px-4 py-2 rounded-xl border border-transparent focus-within:bg-white focus-within:border-slate-300 focus-within:shadow-sm transition-all w-80">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <input type="text" placeholder="要望を検索..." class="bg-transparent border-none outline-none text-[13px] w-full placeholder:text-slate-400 text-slate-900 font-medium">
+                </div>
+            </div>
+
+            <!-- Right items -->
+            <div class="shrink-0 flex items-center gap-3 sm:gap-4 ml-4">
+                <div class="hidden sm:block text-right font-bold text-slate-900 tracking-tight text-[13px] font-mono" id="realtimeClock">-</div>
+                <div class="hidden sm:block h-8 w-px bg-slate-200 mx-2"></div>
+                <button class="relative p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-[#ea4335] rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+        
+        <main class="p-4 lg:p-10 w-full max-w-[1400px] mx-auto flex-1">
+            
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Back Link -->
+                <div>
+                  <a href="/requests" class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-sky-600 transition-colors group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    一覧へ戻る
+                  </a>
+                </div>
+
+                <!-- Status Badge Area -->
+                <div class="flex justify-between items-center mb-2">
+                    <div class="shrink-0 flex items-center gap-3">
+                        <span class="text-2xl font-black text-slate-900 tracking-tight">REQ-0024</span>
+                        <span id="statusBadge" class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg border border-amber-200">申請中</span>
+                        <span id="actionStatusBadge" class="px-3 py-1 bg-slate-100 text-slate-500 text-xs font-bold rounded-lg border border-slate-200">未対応</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-400 font-bold mb-1 uppercase tracking-widest">登録日</p>
+                        <p class="text-sm font-black text-slate-900">2026-04-20 09:30</p>
+                    </div>
+                </div>
+
+                <!-- Basic Info Card -->
+                <div class="glass-card rounded-3xl p-8 bg-white border border-slate-200/60 space-y-8 shadow-sm">
+                    
+                    <!-- Section 1 -->
+                    <section>
+                        <div class="shrink-0 flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
+                            <div class="shrink-0 flex items-center gap-2">
+                                <div class="text-sky-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                                <h3 class="font-black text-slate-900 tracking-tight">要望基本情報</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-x-12 gap-y-8">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-400 mb-2">申請者</label>
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[11px] font-black text-slate-500">山</div>
+                                    <p class="text-[15px] font-black text-slate-900 tracking-tight">山田 太郎 <span class="text-[13px] text-slate-400 font-medium ml-1">(クリエイティブ / emp0012)</span></p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-400 mb-2">要望種別</label>
+                                <p class="text-[15px] font-black text-slate-900 tracking-tight">新規購入希望</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 2 -->
+                    <section>
+                        <div class="shrink-0 flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
+                            <div class="shrink-0 flex items-center gap-2">
+                                <div class="text-sky-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            </div>
+                                <h3 class="font-black text-slate-900 tracking-tight">詳細内容</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-[#f8fafc] rounded-2xl border border-slate-100 p-8">
+                             <p class="text-[14px] text-slate-700 leading-[1.8] font-medium">
+                                 動画編集用ハイスペックPCの導入をお願いします。現在のPCではレンダリングに時間がかかりすぎており、業務効率が著しく低下しています。4K動画の編集を快適に行えるスペックを希望します。
+                             </p>
+                        </div>
+                    </section>
+                    
+                    <div id="rejectBox" class="hidden">
+                         <div class="bg-rose-50 rounded-2xl border border-rose-100 p-8">
+                            <h4 class="text-[13px] font-black text-rose-800 mb-2">却下理由</h4>
+                             <p id="rejectReasonText" class="text-[14px] text-rose-600 leading-[1.8] font-medium"></p>
+                         </div>
+                    </div>
+
+                    <section id="actionMemoSection" class="hidden">
+                        <div class="shrink-0 flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
+                            <div class="shrink-0 flex items-center gap-2">
+                                <div class="text-sky-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></div>
+                                <h3 class="font-black text-slate-900 tracking-tight">対応メモ</h3>
+                            </div>
+                        </div>
+                        <textarea id="actionMemoInput" rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm outline-none focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 transition-all font-medium resize-none" placeholder="対応に関するメモを記録..."></textarea>
+                    </section>
+
+                    <!-- Actions -->
+                    
+                    <div class="flex gap-3 hidden" id="pendingActions">
+                        <button class="flex-1 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all" onclick="confirmAction('承認', 'この要望を承認しますか？', () => { window.location.href = '/request-detail?id=REQ-0022'; })">承認する</button>
+                        <button class="flex-1 py-4 bg-white border border-rose-100 text-rose-500 hover:bg-rose-50 font-bold rounded-xl transition-all" onclick="openModal('rejectModal')">却下</button>
+                    </div>
+
+                    <div class="flex gap-3 hidden" id="approvedActions">
+                        <button class="flex-1 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all" onclick="confirmAction('対応完了', '対応を完了としてマークしますか？', () => { alert('対応完了しました。'); window.location.href = '/requests'; })">対応完了</button>
+                        <button class="flex-1 py-4 bg-white border border-rose-100 text-rose-500 hover:bg-rose-50 font-bold rounded-xl transition-all" onclick="openModal('rejectModal')">却下</button>
+                    </div>
+
+                    <div class="flex gap-3 hidden" id="rejectedActions">
+                        <button class="flex-1 py-4 bg-rose-600 border border-rose-600 text-white hover:bg-rose-700 font-bold rounded-xl transition-all shadow-sm" onclick="confirmAction('却下取消', 'この却下を取り消しますか？', () => { alert('却下取消処理が完了しました。'); window.location.href = '/requests'; })">却下取消</button>
+                    </div>
+
+                </div>
+            </div>
+        
+        </main>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirmModal" class="fixed inset-0 z-[100] hidden">
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0" id="confirmModalBackdrop" onclick="closeConfirmModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden scale-95 opacity-0 transition-all duration-200" id="confirmModalContent">
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4 text-slate-800">
+                        <div class="h-10 w-10 shrink-0 bg-sky-100 text-sky-600 flex items-center justify-center rounded-full" id="confirmModalIcon">
+                            <!-- Icon -->
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-lg font-black tracking-tight" id="confirmModalTitle">確認</h3>
+                    </div>
+                    <p class="text-sm font-medium text-slate-600 mb-6" id="confirmModalMessage">本当に実行しますか？</p>
+                    <div class="flex gap-3">
+                        <button onclick="closeConfirmModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl transition-colors">キャンセル</button>
+                        <button id="confirmModalExecute" class="flex-1 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">実行する</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div id="rejectModal" class="fixed inset-0 z-[100] hidden">
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0" id="rejectModalBackdrop" onclick="closeModal('rejectModal')"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden scale-95 opacity-0 transition-all duration-200" id="rejectModalContent">
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-10 w-10 shrink-0 bg-rose-100 text-rose-600 flex items-center justify-center rounded-full">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-black text-rose-600 tracking-tight">却下する</h3>
+                    </div>
+                    <p class="text-sm font-medium text-slate-600 mb-4">却下する理由（メモ）を入力してください。この内容は申請者にも通知されます。</p>
+                    <textarea id="rejectMemo" rows="4" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-rose-500 focus:border-rose-500 block p-3 outline-none font-medium mb-6 resize-none placeholder:text-slate-400" placeholder="例: 予備の備品がすでに存在するため、新規購入は不要です。"></textarea>
+                    <div class="flex gap-3">
+                        <button onclick="closeModal('rejectModal')" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl transition-colors">キャンセル</button>
+                        <button onclick="executeReject()" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">却下を確定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let currentSuccessMsg = null;
+
+    function confirmAction(title, message, successMessage) {
+        document.getElementById('confirmModalTitle').innerText = title;
+        document.getElementById('confirmModalMessage').innerText = message;
+        currentSuccessMsg = successMessage;
+        
+        let execBtn = document.getElementById('confirmModalExecute');
+        
+        if(title.includes('却下')) {
+            execBtn.className = 'flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+        } else if(title.includes('承認') || title.includes('完了')) {
+            execBtn.className = 'flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+        } else {
+            execBtn.className = 'flex-1 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+        }
+
+        execBtn.onclick = function() {
+            closeConfirmModal();
+            setTimeout(() => {
+                if(typeof currentSuccessMsg === 'function') {
+                    currentSuccessMsg();
+                } else if(currentSuccessMsg) {
+                    alert(currentSuccessMsg);
+                }
+            }, 300);
+        };
+
+        const modal = document.getElementById('confirmModal');
+        const backdrop = document.getElementById('confirmModalBackdrop');
+        const content = document.getElementById('confirmModalContent');
+        
+        modal.classList.remove('hidden');
+        // Trigger reflow
+        void modal.offsetWidth;
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        content.classList.remove('scale-95', 'opacity-0');
+        content.classList.add('scale-100', 'opacity-100');
+    }
+
+    function closeConfirmModal() {
+        const backdrop = document.getElementById('confirmModalBackdrop');
+        const content = document.getElementById('confirmModalContent');
+        
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+        content.classList.remove('scale-100', 'opacity-100');
+        content.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }, 200);
+    }
+
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        const backdrop = document.getElementById(id + 'Backdrop');
+        const content = document.getElementById(id + 'Content');
+        const memo = document.getElementById('rejectMemo');
+        if(memo) memo.value = '';
+        
+        if(modal) {
+            modal.classList.remove('hidden');
+            // Trigger reflow
+            void modal.offsetWidth;
+            if(backdrop) {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+            }
+            if(content) {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }
+        }
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        const backdrop = document.getElementById(id + 'Backdrop');
+        const content = document.getElementById(id + 'Content');
+        
+        if(backdrop) {
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+        }
+        if(content) {
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+        }
+        
+        setTimeout(() => {
+            if(modal) modal.classList.add('hidden');
+        }, 200);
+    }
+
+    function executeReject() {
+        closeModal('rejectModal');
+        setTimeout(() => {
+            alert('却下処理が完了しました。メモを保存しました。');
+            window.location.href = '/requests';
+        }, 300);
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    // Modal behavior fix for mobile
+    function openDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    function closeDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+    </script>
+</body>
+</html>

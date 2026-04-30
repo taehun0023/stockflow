@@ -1,0 +1,21 @@
+body { 
+    font-family: 'Zen Maru Gothic', 'Inter', sans-serif; 
+}
+
+.glass { 
+    background: rgba(255, 255, 255, 0.6); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+}
+
+.bg-image {
+    background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1920');
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px); /* Stronger blur for better focus */
+    transform: scale(1.1);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}

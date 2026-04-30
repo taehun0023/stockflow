@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - マイページ (利用状況)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 9999px; }
+    </style>
+
+</head>
+<body class="bg-mesh min-h-screen font-sans flex overflow-x-hidden">
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="w-64 bg-white border-r border-slate-100 flex flex-col fixed h-full z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+            
+        <div class="h-16 flex items-center px-6 border-b border-transparent mt-2">
+            <a href="/" class="flex items-center gap-3">
+                <div class="h-8 w-8 bg-black rounded flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <span class="text-[15px] font-bold text-slate-900 tracking-tight">備品管理システム</span>
+            </a>
+        </div>
+
+                <nav class="flex-1 space-y-1 px-3 py-4 overflow-y-auto custom-scrollbar">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="text-sm">管理者ダッシュボード</span>
+            </a>
+            <a href="/mypage" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-50 text-sky-600 font-bold transition-all group shadow-sm ring-1 ring-slate-200/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <span class="text-sm">利用者ダッシュボード</span>
+            </a>
+            <a href="/rentals-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(社員)</span>
+            </a>
+            <a href="/rentals" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧(管理者)</span>
+            </a>
+            <a href="/reservations-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(社員)</span>
+            </a>
+            <a href="/reservations" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧(管理者)</span>
+            </a>
+            <a href="/requests-employee" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(社員)</span>
+            </a>
+            <a href="/requests" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧(管理者)</span>
+            </a>
+            <a href="/equipments" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                <span class="text-sm">在庫管理</span>
+            </a>
+            <a href="/employees" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span class="text-sm">利用者管理</span>
+            </a>
+            <a href="/settings" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-sm">システム設定</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
+            <div class="shrink-0 flex items-center justify-between">
+                <a href="/profile" class="flex items-center gap-3 group hover:bg-slate-50/80 p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : `山`}">山</div>
+                    <div class="flex flex-col truncate">
+                        <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate" th:text="${user.name}">山田 太郎</span>
+                        <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user.email}">user@example.com</span>
+                    </div>
+                </a>
+                <a href="/logout" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-50 block"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></a>
+            </div>
+        </div>
+    
+        </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 lg:ml-64 min-w-0 flex flex-col min-h-screen">
+        
+        <header class="h-16 bg-white border-b border-slate-100 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-40 shrink-0">
+            <!-- Left: Toggle & Search -->
+            <div class="flex items-center gap-3 flex-1">
+                <button onclick="toggleSidebar()" class="lg:hidden shrink-0 flex items-center justify-center p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <div class="hidden md:flex shrink-0 items-center gap-2 bg-slate-50/80 px-4 py-2 rounded-xl border border-transparent focus-within:bg-white focus-within:border-slate-300 focus-within:shadow-sm transition-all w-80">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <input type="text" placeholder="検索..." class="bg-transparent border-none outline-none text-[13px] w-full placeholder:text-slate-400 text-slate-900 font-medium">
+                </div>
+            </div>
+
+            <!-- Right items -->
+            <div class="shrink-0 flex items-center gap-3 sm:gap-4 ml-4">
+                <div class="hidden sm:block text-right font-bold text-slate-900 tracking-tight text-[13px] font-mono" id="realtimeClock">2026-04-24 14:00</div>
+                <div class="hidden sm:block h-8 w-px bg-slate-200 mx-2"></div>
+                <button class="relative p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-[#ea4335] rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+        
+        <main class="p-4 lg:p-10 w-full max-w-[1400px] mx-auto flex-1">
+            
+            
+            <!-- Title Area -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <h1 class="text-[22px] font-bold tracking-tight text-slate-900 leading-tight">利用者ダッシュボード</h1>
+                    <p class="text-[12px] font-medium text-slate-500 mt-1">現在の備品利用状況と通知を確認できます。</p>
+                </div>
+                <div class="shrink-0 flex items-center gap-2 md:gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+                    <button class="shrink-0 flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg bg-white text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
+                        お気に入り
+                    </button>
+                    <button class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-[13px] font-bold text-white hover:bg-slate-800 transition-colors shadow-sm">
+                        新規予約登録
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- 貸出中 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-4">
+                    <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-[13px] font-bold text-slate-500 mb-1">貸出中</p>
+                        <p class="text-3xl font-black text-slate-900 tracking-tight leading-none">4<span class="text-sm font-bold text-slate-500 ml-1">件</span></p>
+                    </div>
+                </div>
+
+                <!-- 延滞中 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-4 relative overflow-hidden">
+                    <div class="absolute top-3 right-3"><span class="text-[9px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 border border-red-100 rounded">URGENT</span></div>
+                    <div class="h-12 w-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center shrink-0 relative z-10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div class="relative z-10">
+                        <p class="text-[13px] font-bold text-slate-500 mb-1">延滞中</p>
+                        <p class="text-3xl font-black text-slate-900 tracking-tight leading-none">1<span class="text-sm font-bold text-slate-500 ml-1">件</span></p>
+                    </div>
+                </div>
+
+                <!-- 予約件数 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-4">
+                    <div class="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-[13px] font-bold text-slate-500 mb-1">予約件数</p>
+                        <p class="text-3xl font-black text-slate-900 tracking-tight leading-none">2<span class="text-sm font-bold text-slate-500 ml-1">件</span></p>
+                    </div>
+                </div>
+
+                <!-- お気に入り -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-4">
+                    <div class="h-12 w-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-[13px] font-bold text-slate-500 mb-1">お気に入り</p>
+                        <p class="text-3xl font-black text-slate-900 tracking-tight leading-none">2<span class="text-sm font-bold text-slate-500 ml-1">件</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 延滞・返却期限リスト -->
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col h-auto">
+                    <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center shrink-0">
+                        <h2 class="text-[14px] font-bold text-slate-900 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            延滞・返却期限リスト
+                        </h2>
+                        <a href="/rentals-employee" class="text-[12px] font-bold text-blue-600 hover:text-blue-700 transition-colors">すべて表示 →</a>
+                    </div>
+                    <div class="overflow-y-auto flex-1 p-4">
+                        <div class="space-y-1">
+                            <a href="#" onclick="openDetailModal('rental', 'プロジェクター EPSON', '映像機器', '延滞中', '2026-03-25', '2026-04-01', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full border border-red-100 bg-white flex items-center justify-center shrink-0 text-red-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <div class="w-40">
+                                        <p class="text-[13px] font-bold text-slate-900">プロジェクター EPSON</p>
+                                        <p class="text-[11px] text-slate-400 font-medium">映像機器</p>
+                                    </div>
+                                </div>
+                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
+                                    
+                                    <div class="flex gap-2 min-w-[90px] justify-end">
+                                        <span class="text-[11px] font-bold text-red-600">5日 延滞</span>
+                                        <span class="text-[11px] font-bold text-red-600">延滞中</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" onclick="openDetailModal('rental', 'MacBook Pro 14"', 'PC・周辺機器', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <div class="w-40">
+                                        <p class="text-[13px] font-bold text-slate-900">MacBook Pro 14"</p>
+                                        <p class="text-[11px] text-slate-400 font-medium">PC・周辺機器</p>
+                                    </div>
+                                </div>
+                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
+                                    
+                                    <div class="flex gap-2 min-w-[90px] justify-end">
+                                        <span class="text-[11px] font-bold text-amber-500">あと2日</span>
+                                        <span class="text-[11px] font-bold text-amber-500">期限間近</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" onclick="openDetailModal('rental', 'iPhone 15 Pro', 'スマートフォン', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <div class="w-40">
+                                        <p class="text-[13px] font-bold text-slate-900">iPhone 15 Pro</p>
+                                        <p class="text-[11px] text-slate-400 font-medium">スマートフォン</p>
+                                    </div>
+                                </div>
+                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
+                                    
+                                    <div class="flex gap-2 min-w-[90px] justify-end">
+                                        <span class="text-[11px] font-bold text-amber-500">あと2日</span>
+                                        <span class="text-[11px] font-bold text-amber-500">期限間近</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今後の予約 -->
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col h-auto">
+                    <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center shrink-0">
+                        <h2 class="text-[14px] font-bold text-slate-900 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            今後の予約
+                        </h2>
+                        <a href="/reservations-employee" class="text-[12px] font-bold text-blue-600 hover:text-blue-700 transition-colors">すべて表示 →</a>
+                    </div>
+                    <div class="overflow-y-auto flex-1 p-4">
+                        <div class="space-y-1">
+                            <a href="#" onclick="openDetailModal('reservation', 'ポータブルプロジェクター', '映像機器', '予約確定', '2026-04-10', '2026-04-12', '/reservation-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <div class="w-40">
+                                        <p class="text-[13px] font-bold text-slate-900">ポータブルプロジェクター</p>
+                                        <p class="text-[11px] text-slate-400 font-medium">映像機器</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
+                                </div>
+                            </a>
+                            <a href="#" onclick="openDetailModal('reservation', 'デジタル一眼レフカメラ', 'カメラ', '承認待ち', '2026-04-15', '2026-04-17', '/reservation-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="shrink-0 flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <div class="w-40">
+                                        <p class="text-[13px] font-bold text-slate-900">デジタル一眼レフカメラ</p>
+                                        <p class="text-[11px] text-slate-400 font-medium">カメラ</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 通知 -->
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col h-auto">
+                    <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center shrink-0">
+                        <h2 class="text-[14px] font-bold text-slate-900 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            通知
+                        </h2>
+                        <a href="#" class="text-[12px] font-bold text-blue-600 hover:text-blue-700 transition-colors">すべて表示 →</a>
+                    </div>
+                    <div class="overflow-y-auto flex-1 p-4">
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 cursor-pointer hover:bg-slate-50 p-2 -mx-2 rounded-xl transition-colors" onclick="openDetailModal('notification', '返却期限のお知らせ', 'システム通知', 'お知らせ', '', '', '/rental-detail', 'MacBook Proの返却期限が2日後です。')">
+                                <div class="w-2 h-2 rounded-full bg-red-500 mt-1.5 shrink-0"></div>
+                                <div class="flex-1">
+                                    <div class="shrink-0 flex items-center justify-between">
+                                        <p class="text-[13px] font-bold text-slate-900">返却期限のお知らせ</p>
+                                        <span class="text-[11px] text-slate-400 font-mono">2026-04-10</span>
+                                    </div>
+                                    <p class="text-[12px] text-slate-600 mt-0.5 leading-relaxed">MacBook Proの返却期限が2日後です。</p></div></li>
+                            <li class="flex items-start gap-3 cursor-pointer hover:bg-slate-50 p-2 -mx-2 rounded-xl transition-colors" onclick="openDetailModal('notification', '予約確定', 'システム通知', 'お知らせ', '', '', '/reservation-detail', '会議室Aの予約が承認されました。')">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0"></div>
+                                <div class="flex-1">
+                                    <div class="shrink-0 flex items-center justify-between">
+                                        <p class="text-[13px] font-bold text-slate-900">予約確定</p>
+                                        <span class="text-[11px] text-slate-400 font-mono">2026-04-09</span>
+                                    </div>
+                                    <p class="text-[12px] text-slate-600 mt-0.5 leading-relaxed">会議室Aの予約が承認されました。</p></div></li>
+                            <li class="flex items-start gap-3 cursor-pointer hover:bg-slate-50 p-2 -mx-2 rounded-xl transition-colors" onclick="openDetailModal('notification', 'システムメンテナンス', '運営通知', '重要', '', '', '#', '今週末にシステムメンテナンスを行います。')">
+                                <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
+                                <div class="flex-1">
+                                    <div class="shrink-0 flex items-center justify-between">
+                                        <p class="text-[13px] font-bold text-slate-900">システムメンテナンス</p>
+                                        <span class="text-[11px] text-slate-400 font-mono">2026-04-08</span>
+                                    </div>
+                                    <p class="text-[12px] text-slate-600 mt-0.5 leading-relaxed">今週末にシステムメンテナンスを行います。</p></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col">
+                <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center">
+                    <h2 class="text-[15px] font-bold text-slate-900 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        最近の活動
+                    </h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50/50 border-b border-slate-100">
+                                <th class="py-3 px-4 font-bold text-[12px] text-slate-500">アクション</th>
+                                <th class="py-3 px-4 font-bold text-[12px] text-slate-500">対象備品等</th>
+                                <th class="py-3 px-4 font-bold text-[12px] text-slate-500 text-right">日時</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-[13px] divide-y divide-slate-50">
+                            <tr class="hover:bg-slate-50/50 transition-colors cursor-pointer" onclick="openDetailModal('activity', 'プロジェクター EPSON', '貸出ログ', '貸出完了', '2026-04-01', '', '/rental-detail', '貸出処理が正常に完了しました。')">
+                                <td class="py-4 px-4 font-bold text-slate-700 flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-blue-500"></div> 貸出完了
+                                </td>
+                                <td class="py-4 px-4 font-bold text-slate-900">プロジェクター EPSON</td>
+                                <td class="py-4 px-4 text-slate-400 text-right text-[12px] font-mono tracking-tighter">2026-04-01 09:30</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors cursor-pointer" onclick="openDetailModal('activity', 'Webカメラ Logicool', '返却ログ', '返却完了', '2026-04-10', '', '/rental-detail', '返却処理が正常に完了しました。')">
+                                <td class="py-4 px-4 font-bold text-slate-700 flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div> 返却完了
+                                </td>
+                                <td class="py-4 px-4 font-bold text-slate-900">Webカメラ Logicool</td>
+                                <td class="py-4 px-4 text-slate-400 text-right text-[12px] font-mono tracking-tighter">2026-04-10 10:15</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors cursor-pointer" onclick="openDetailModal('activity', '会議用マイク', '予約ログ', '予約受付', '2026-04-10', '', '/reservation-detail', '新たな予約を受け付けました。')">
+                                <td class="py-4 px-4 font-bold text-slate-700 flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-purple-500"></div> 予約受付
+                                </td>
+                                <td class="py-4 px-4 font-bold text-slate-900">会議用マイク</td>
+                                <td class="py-4 px-4 text-slate-400 text-right text-[12px] font-mono tracking-tighter">2026-04-10 11:00</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors cursor-pointer" onclick="openDetailModal('activity', 'MacBook Pro 14"', '貸出ログ', '貸出完了', '2026-04-11', '', '/rental-detail', '貸出処理が正常に完了しました。')">
+                                <td class="py-4 px-4 font-bold text-slate-700 flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-blue-500"></div> 貸出完了
+                                </td>
+                                <td class="py-4 px-4 font-bold text-slate-900">MacBook Pro 14"</td>
+                                <td class="py-4 px-4 text-slate-400 text-right text-[12px] font-mono tracking-tighter">2026-04-11 13:45</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-colors cursor-pointer" onclick="openDetailModal('activity', 'iPad Pro 12.9"', '返却ログ', '返却完了', '2026-04-11', '', '/rental-detail', '返却処理が正常に完了しました。')">
+                                <td class="py-4 px-4 font-bold text-slate-700 flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div> 返却完了
+                                </td>
+                                <td class="py-4 px-4 font-bold text-slate-900">iPad Pro 12.9"</td>
+                                <td class="py-4 px-4 text-slate-400 text-right text-[12px] font-mono tracking-tighter">2026-04-11 15:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Footer -->
+                <div class="p-4 flex items-center justify-between border-t border-slate-100">
+                    <div class="text-[12px] text-slate-500 font-medium tracking-tight">全 <span class="font-bold text-slate-900">12</span> 件中 <span class="font-bold text-slate-900">1 - 5</span> 件を表示</div>
+                    <div class="shrink-0 flex items-center gap-1">
+                        <button class="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors" disabled="">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button class="w-7 h-7 flex items-center justify-center rounded-lg bg-black text-white text-[12px] font-bold transition-colors">1</button>
+                        <button class="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-[12px] font-bold transition-colors">2</button>
+                        <button class="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-[12px] font-bold transition-colors">3</button>
+                        <button class="w-7 h-7 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        
+        </main>
+    </div>
+
+    <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    // Modal behavior fix for mobile
+    function openDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+    
+    function closeDetailModal() {
+        const modal = document.getElementById('detailModal');
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+    </script>
+</body>
+</html>
