@@ -87,7 +87,7 @@
         <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
             <div class="shrink-0 flex items-center justify-between">
                 <a href="/profile" class="flex items-center gap-3 group hover:bg-slate-50/80 p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
-                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${T(java.lang.String).valueOf(user.name).substring(0,1)}">山</div>
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : '山'}">山</div>
                     <div class="flex flex-col truncate">
                         <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate" th:text="${user != null ? user.name : '山田 太郎'}">システム管理者</span>
                         <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user != null ? user.email : 'user@example.com'}">admin@example.com</span>
@@ -144,26 +144,26 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Profile Base Info -->
                 <div class="md:col-span-1 space-y-6">
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col items-centertext-center">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center">
                         <div class="flex flex-col items-center justify-center text-center">
-                            <div class="h-20 w-20 rounded-full bg-slate-100 flex items-center justify-center text-3xl font-black text-slate-400 mb-4 shadow-inner ring-4 ring-slate-50" th:text="${T(java.lang.String).valueOf(user.name).substring(0,1)}">山</div>
-                            <h2 class="text-xl font-bold text-slate-900" th:text="${user.name}">山田 太郎</h2>
-                            <p class="text-sm font-medium text-slate-500 mt-1" th:text="${user.email}">user@example.com</p>
+                            <div class="h-20 w-20 rounded-full bg-slate-100 flex items-center justify-center text-3xl font-black text-slate-400 mb-4 shadow-inner ring-4 ring-slate-50" th:text="${user != null && user.name != null ? user.name.substring(0,1) : '山'}">山</div>
+                            <h2 class="text-xl font-bold text-slate-900" th:text="${user != null ? user.name : '山田 太郎'}">山田 太郎</h2>
+                            <p class="text-sm font-medium text-slate-500 mt-1" th:text="${user != null ? user.email : 'user@example.com'}">user@example.com</p>
                         </div>
                         <div class="mt-6 border-t border-slate-100 pt-6 w-full space-y-3 hidden md:block">
                             <div class="flex justify-between items-center text-[13px]">
                                 <span class="font-bold text-slate-400">所属</span>
-                                <span class="font-bold text-slate-700" th:text="${user.department}">営業部</span>
+                                <span class="font-bold text-slate-700" th:text="${user != null && user.department != null ? user.department : '-'}">営業部</span>
                             </div>
                             <div class="flex justify-between items-center text-[13px]">
                                 <span class="font-bold text-slate-400">権限</span>
                                 <span class="px-2 py-0.5 rounded-md font-bold text-[11px]" 
-                                      th:classappend="${user.role == 'ADMIN' ? 'bg-sky-50 text-sky-600' : 'bg-slate-100 text-slate-600'}"
-                                      th:text="${user.role}">USER</span>
+                                      th:classappend="${user != null && user.role.name() == 'ADMIN' ? 'bg-sky-50 text-sky-600' : 'bg-slate-100 text-slate-600'}"
+                                      th:text="${user != null ? user.role : 'USER'}">USER</span>
                             </div>
                             <div class="flex justify-between items-center text-[13px]">
                                 <span class="font-bold text-slate-400">ステータス</span>
-                                <span class="px-2 py-0.5 rounded-md font-bold text-[11px] bg-emerald-50 text-emerald-600" th:text="${user.status}">アクティブ</span>
+                                <span class="px-2 py-0.5 rounded-md font-bold text-[11px] bg-emerald-50 text-emerald-600" th:text="${user != null ? user.accountStatus : 'ACTIVE'}">アクティブ</span>
                             </div>
                         </div>
                     </div>
@@ -180,19 +180,19 @@
                         <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">氏名</label>
-                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user.name}">山田 太郎</div>
+                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user != null ? user.name : '山田 太郎'}">山田 太郎</div>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">メールアドレス</label>
-                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user.email}">user@example.com</div>
+                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user != null ? user.email : 'user@example.com'}">user@example.com</div>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">所属部署</label>
-                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user.department}">営業部</div>
+                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user != null && user.department != null ? user.department : '-'}">営業部</div>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">電話番号</label>
-                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user.phone}">03-9876-5432</div>
+                                <div class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800" th:text="${user != null && user.phone != null ? user.phone : '-'}">03-9876-5432</div>
                             </div>
                         </div>
                     </div>
@@ -291,5 +291,6 @@
             if(dot) dot.style.display = 'none';
         }
     </script>
+    <script src="/js/modals.js"></script>
 </body>
 </html>

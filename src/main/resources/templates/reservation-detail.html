@@ -89,10 +89,10 @@
         <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
             <div class="shrink-0 flex items-center justify-between">
                 <a href="/profile" class="flex items-center gap-3 group hover:bg-slate-50/80 p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
-                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : `山`}">山</div>
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : '山'}">山</div>
                     <div class="flex flex-col truncate">
-                        <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate" th:text="${user.name}">山田 太郎</span>
-                        <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user.email}">user@example.com</span>
+                        <span class="text-[13px] font-bold text-slate-800 group-hover:text-sky-600 transition-colors truncate" th:text="${user != null ? user.name : '山田 太郎'}">山田 太郎</span>
+                        <span class="text-[11px] text-slate-500 truncate transition-colors group-hover:text-slate-600" th:text="${user != null ? user.email : 'user@example.com'}">user@example.com</span>
                     </div>
                 </a>
                 <a href="/logout" class="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-50 block"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></a>
@@ -278,5 +278,6 @@
         document.body.classList.remove('overflow-hidden');
     }
     </script>
+    <script src="/js/modals.js"></script>
 </body>
 </html>

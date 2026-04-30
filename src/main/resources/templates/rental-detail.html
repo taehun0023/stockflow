@@ -89,7 +89,7 @@
         <div class="mt-auto border-t border-slate-100 p-4 shrink-0 bg-white z-20 relative">
             <div class="shrink-0 flex items-center justify-between">
                 <div class="shrink-0 flex items-center gap-3 group p-2 -ml-2 rounded-xl transition-colors flex-1 min-w-0">
-                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : `山`}">山</div>
+                    <div class="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-[18px] font-black text-slate-500 shrink-0 shadow-inner group-hover:bg-slate-300 transition-colors" th:text="${user != null && user.name != null ? user.name.substring(0,1) : '山'}">山</div>
                     <div class="flex flex-col truncate">
                         <span class="text-[13px] font-bold text-slate-800 truncate">山田 太郎</span>
                         <span class="text-[11px] text-slate-500 truncate">user@example.com</span>
@@ -267,5 +267,6 @@
         document.body.classList.remove('overflow-hidden');
     }
     </script>
+    <script src="/js/modals.js"></script>
 </body>
 </html>
