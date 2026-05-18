@@ -71,7 +71,7 @@
             </a>
             <a href="/equipments" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-50 text-sky-600 font-bold transition-all group shadow-sm ring-1 ring-slate-200/50">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-                <span class="text-sm">在庫管理</span>
+                <span class="text-sm">備品管理</span>
             </a>
             <a href="/employees" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -129,48 +129,50 @@
             <div class="max-w-6xl mx-auto space-y-6">
 
                 <!-- Header Actions & Filters -->
-                <div class="flex justify-between items-start bg-white/40 glass-card rounded-2xl p-4 px-6 overflow-x-auto">
-                    <div class="flex flex-col gap-3 shrink-0">
-                        <div class="relative w-full">
+                <div class="flex flex-wrap justify-between items-center gap-4 bg-white/40 glass-card rounded-2xl p-4 px-6">
+                    <div class="flex flex-wrap items-center gap-3 shrink-0">
+                        <div class="relative w-56">
                             <input type="text" placeholder="備品名・モデル検索..." class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
                             <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
-                        <div class="shrink-0 flex items-center gap-2 lg:gap-3">
-                            <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-[130px] lg:w-[136px] p-2.5 outline-none font-medium">
-                                <option value="">全てのカテゴリ</option>
-                                <option value="PC">PC</option>
-                                <option value="Monitor">モニター</option>
-                                <option value="License">ライセンス</option>
-                                <option value="Consumable">消耗品</option>
-                            </select>
-                            <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-[120px] lg:w-[136px] p-2.5 outline-none font-medium">
-                                <option value="">全ての状態</option>
-                                <option value="Available">利用可能</option>
-                                <option value="InUse">貸出中</option>
-                                <option value="Broken">故障</option>
-                            </select>
-                            <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-[130px] lg:w-[136px] p-2.5 outline-none font-medium">
-                                <option value="">全ての保管場所</option>
-                                <option value="HQ">本社 IT倉庫</option>
-                                <option value="Branch">東京支社</option>
-                            </select>
-                            <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-[130px] lg:w-[136px] p-2.5 outline-none font-medium">
-                                <option value="">全ての在庫状況</option>
-                                <option value="InStock">在庫あり</option>
-                                <option value="OutOfStock">在庫なし</option>
-                            </select>
-                        </div>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-36 p-2.5 outline-none font-medium">
+                            <option value="">全てのカテゴリ</option>
+                            <option>PC</option>
+                            <option>モニター</option>
+                            <option>ライセンス</option>
+                            <option>消耗品</option>
+                        </select>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
+                            <option value="">全ての状態</option>
+                            <option>利用可能</option>
+                            <option>貸出中</option>
+                            <option>故障</option>
+                            <option>廃棄</option>
+                        </select>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-40 p-2.5 outline-none font-medium">
+                            <option value="">全ての保管場所</option>
+                            <option>本社 IT倉庫</option>
+                            <option>東京支社</option>
+                        </select>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-36 p-2.5 outline-none font-medium">
+                            <option value="">全ての在庫状況</option>
+                            <option>在庫あり</option>
+                            <option>在庫なし</option>
+                        </select>
                     </div>
-                    <div class="shrink-0 flex items-center gap-3 shrink-0 ml-4 self-center">
-                        <button onclick="openBarcodeModal()" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 outline-none">
+                    <div class="shrink-0 flex items-center gap-3 ml-auto">
+                        <button id="barcodeScanButton" onclick="openBarcodeModal()" title="バーコード照合はカメラ利用可能な端末で使用できます。" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 outline-none disabled:opacity-45 disabled:cursor-not-allowed disabled:hover:bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h4v4H4zM16 4h4v4h-4zM4 16h4v4H4zM16 16h4v4h-4zM8 4v16M16 4v16M4 8h16M4 16h16"></path></svg>
                             バーコード照合
                         </button>
-                        <button onclick="openCsvImportModal()" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 outline-none">
+                        <a href="/csv-inventory" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            CSV一括更新
-                        </button>
-                        <a href="/register-equipment" class="px-6 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
+                            CSV在庫更新
+                        </a>
+                        <a href="/csv-import-result" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 outline-none">
+                            取込結果確認
+                        </a>
+                        <a href="/register-equipment" onclick="openEquipmentRegisterModal(); return false;" class="px-6 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             新規備品登録
                         </a>
@@ -178,9 +180,9 @@
                 </div>
 
                 <!-- Table Card -->
-                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-17rem)]">
+                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-14rem)]">
                     <div class="px-10 py-6 border-b border-slate-200/50 bg-white/40 shrink-0">
-                        <h2 class="text-xl font-black text-slate-900 tracking-tight">備品一覧 (在庫管理)</h2>
+                        <h2 class="text-xl font-black text-slate-900 tracking-tight">備品一覧</h2>
                     </div>
 
                     <!-- Table Container -->
@@ -190,11 +192,13 @@
                                 <tr>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-24 text-center px-3 align-middle">画像</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">備品名・モデル</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-32 text-center px-3 align-middle">管理番号</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-32 text-center px-3 align-middle">備品番号</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-28 text-center px-3 align-middle">カテゴリ</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-32 text-center px-3 align-middle">保管場所</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-24 text-center px-3 align-middle">状態</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-24 text-center px-3 align-middle">在庫数量</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-32 text-center px-3 align-middle">貸出可否</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 w-24 text-center px-3 align-middle">お気に入り</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 w-28 text-center px-3 align-middle">貸出可否</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 w-36 text-center px-3 align-middle">アクション</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200/50 bg-white/40 lg:text-sm text-xs">
@@ -210,6 +214,8 @@
                                         <p class="text-[11px] text-slate-500 mt-1">Apple / M3 Pro</p>
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center uppercase px-3 align-middle">EQ-2026-001</td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">PC</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">本社 IT倉庫</span></td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
                                             利用可能
@@ -217,16 +223,13 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 font-bold text-slate-900 border-r border-slate-200/50 text-center px-3 align-middle">3</td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
-                                        <span class="text-xs font-bold text-slate-600">貸出可能</span>
-                                        <div class="shrink-0 flex items-center justify-center gap-2 mt-2">
-                                            <button class="px-2 py-1 bg-sky-50 text-sky-600 text-[10px] font-bold rounded border border-sky-200 hover:bg-sky-100">予約</button>
-                                            <button class="px-2 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded border border-emerald-200 hover:bg-emerald-100">貸出</button>
-                                        </div>
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">貸出可能</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <button class="text-slate-300 hover:text-amber-400 focus:text-amber-400 transition-colors" onclick="toggleStar(this)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                                        </button>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button onclick="openEquipmentModal('1')" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm">詳細</button>
+                                            <button onclick="openEquipmentEditModal('1')" class="px-3 py-1.5 bg-white text-slate-700 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm">編集</button>
+                                        </div>
                                     </td>
                                 </tr>
                                 
@@ -242,6 +245,8 @@
                                         <p class="text-[11px] text-slate-500 mt-1">Dell / 27インチ 4K</p>
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center uppercase px-3 align-middle">EQ-2026-002</td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">モニター</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">東京支社</span></td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200">
                                             貸出中
@@ -249,15 +254,13 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 font-bold text-slate-400 border-r border-slate-200/50 text-center px-3 align-middle">0</td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
-                                        <span class="text-xs font-bold text-slate-400">貸出不可</span>
-                                        <div class="shrink-0 flex items-center justify-center gap-2 mt-2">
-                                            <button class="px-2 py-1 bg-sky-50 text-sky-600 text-[10px] font-bold rounded border border-sky-200 hover:bg-sky-100">予約</button>
-                                        </div>
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">貸出不可</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <button class="text-amber-400 hover:text-slate-300 transition-colors" onclick="toggleStar(this)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                                        </button>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button onclick="openEquipmentModal('2')" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm">詳細</button>
+                                            <button onclick="openEquipmentEditModal('2')" class="px-3 py-1.5 bg-white text-slate-700 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm">編集</button>
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -273,6 +276,8 @@
                                         <p class="text-[11px] text-slate-400 mt-1">Lenovo / Gen 11</p>
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-400 border-r border-slate-200/50 text-center uppercase px-3 align-middle">EQ-2025-089</td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">PC</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">本社 IT倉庫</span></td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
                                             故障
@@ -280,12 +285,13 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 font-bold text-slate-400 border-r border-slate-200/50 text-center px-3 align-middle">1</td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
-                                        <span class="text-xs font-bold text-slate-400">貸出不可</span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">貸出不可</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <button class="text-slate-300 hover:text-amber-400 focus:text-amber-400 transition-colors" onclick="toggleStar(this)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                                        </button>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button onclick="openEquipmentModal('3')" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm">詳細</button>
+                                            <button onclick="openEquipmentEditModal('3')" class="px-3 py-1.5 bg-white text-slate-700 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm">編集</button>
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -301,25 +307,23 @@
                                         <p class="text-[11px] text-slate-500 mt-1">KOKUYO</p>
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center uppercase px-3 align-middle">CS-2026-001</td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">消耗品</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle"><span class="text-xs font-bold text-slate-600">本社 IT倉庫</span></td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
-                                        <div class="flex flex-col items-center gap-2">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
-                                                利用可能
-                                            </span>
-                                            <button onclick="alert('消費処理ポップアップ (추후 구현)')" class="text-[10px] text-sky-600 hover:text-sky-800 font-bold underline">消費する</button>
-                                        </div>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                                            利用可能
+                                        </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 font-bold text-slate-900 border-r border-slate-200/50 text-center px-3 align-middle">25</td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
-                                        <span class="text-xs font-bold text-slate-600">貸出可能</span>
-                                        <div class="shrink-0 flex items-center justify-center gap-2 mt-2">
-                                            <button class="px-2 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded border border-emerald-200 hover:bg-emerald-100">貸出</button>
-                                        </div>
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">貸出不可</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <button class="text-slate-300 hover:text-amber-400 focus:text-amber-400 transition-colors" onclick="toggleStar(this)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                                        </button>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button onclick="openEquipmentModal('4')" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm">詳細</button>
+                                            <button onclick="openEquipmentEditModal('4')" class="px-3 py-1.5 bg-white text-slate-700 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm">編集</button>
+                                            <button onclick="openConsumeModal('A4 コピー用紙')" class="px-3 py-1.5 bg-white text-sky-600 border border-sky-200 text-[11px] font-bold rounded-lg hover:bg-sky-50 transition-colors shadow-sm">消費処理</button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -357,6 +361,39 @@
         const modal = document.getElementById('detailModal');
         modal.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
+    }
+
+    async function configureBarcodeScanButton() {
+        const button = document.getElementById('barcodeScanButton');
+        if (!button) return;
+
+        const unavailableMessage = 'バーコード照合はカメラ利用可能な端末で使用できます。';
+        const disableButton = () => {
+            button.disabled = true;
+            button.setAttribute('aria-disabled', 'true');
+            button.setAttribute('title', unavailableMessage);
+        };
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            disableButton();
+            return;
+        }
+
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const hasCamera = devices.some((device) => device.kind === 'videoinput');
+            if (!hasCamera) {
+                disableButton();
+            }
+        } catch (error) {
+            disableButton();
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', configureBarcodeScanButton);
+    } else {
+        configureBarcodeScanButton();
     }
     </script>
     <script src="/js/modals.js"></script>

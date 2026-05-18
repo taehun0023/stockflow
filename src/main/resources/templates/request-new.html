@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - 備品要望登録</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', '"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="bg-mesh min-h-screen font-sans flex overflow-x-hidden">
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="w-64 bg-white border-r border-slate-100 flex flex-col fixed h-full z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <div class="h-16 flex items-center px-6 border-b border-transparent mt-2">
+            <a href="/" class="flex items-center gap-3">
+                <div class="h-8 w-8 bg-black rounded flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <span class="text-[15px] font-bold text-slate-900 tracking-tight">備品管理システム</span>
+            </a>
+        </div>
+
+        <nav class="flex-1 space-y-1 px-3 py-4 overflow-y-auto custom-scrollbar">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span class="text-sm">管理者ダッシュボード</span>
+            </a>
+            <a href="/rentals" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <span class="text-sm">貸出一覧</span>
+            </a>
+            <a href="/reservations" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="text-sm">予約一覧</span>
+            </a>
+            <a href="/requests" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-50 text-sky-600 font-bold transition-all group shadow-sm ring-1 ring-slate-200/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <span class="text-sm">要望一覧</span>
+            </a>
+            <a href="/equipments" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                <span class="text-sm">備品管理</span>
+            </a>
+            <a href="/employees" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-sm">利用者管理</span>
+            </a>
+            <a href="/settings" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 font-medium transition-all hover:bg-slate-50 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+                <span class="text-sm">システム設定</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 lg:ml-64 min-w-0 flex flex-col min-h-screen">
+        <header class="h-16 bg-white border-b border-slate-100 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-3 flex-1">
+                <button onclick="toggleSidebar()" class="lg:hidden shrink-0 flex items-center justify-center p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <div class="hidden md:flex shrink-0 items-center gap-2 bg-slate-50/80 px-4 py-2 rounded-xl border border-transparent w-80">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <input type="text" placeholder="検索..." class="bg-transparent border-none outline-none text-[13px] w-full placeholder:text-slate-400 text-slate-900 font-medium">
+                </div>
+            </div>
+            <div class="shrink-0 flex items-center gap-3 sm:gap-4 ml-4">
+                <button type="button" class="theme-toggle-btn shrink-0 flex items-center justify-center h-10 w-10 text-slate-500 hover:text-slate-700 hover:bg-slate-50 rounded-xl border border-slate-200 transition-colors" aria-label="テーマ切替"></button>
+                <div class="hidden sm:block text-right font-bold text-slate-900 tracking-tight text-[13px] font-mono" id="realtimeClock">2026-04-24 14:00</div>
+                <div class="hidden sm:block h-8 w-px bg-slate-200 mx-2"></div>
+                <button class="relative p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-[#ea4335] rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="p-4 lg:p-10 w-full max-w-[1400px] mx-auto flex-1">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-black text-slate-900 tracking-tight">備品要望登録</h1>
+                    </div>
+                </div>
+
+                <form id="requestCreateForm" class="glass-card rounded-[2rem] overflow-hidden bg-white/70">
+                    <div class="px-8 py-6 border-b border-slate-200/60">
+                        <h2 class="text-lg font-black text-slate-900 tracking-tight">要望内容</h2>
+                    </div>
+                    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <label class="block">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">要望種別 <span class="text-rose-500">*</span></span>
+                            <select id="requestType" class="w-full h-12 bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block px-4 outline-none font-bold">
+                                <option>新規購入</option>
+                                <option>追加購入</option>
+                                <option>代替品</option>
+                                <option>改善希望</option>
+                            </select>
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">希望備品名 <span class="text-rose-500">*</span></span>
+                            <input id="desiredItemName" type="text" class="w-full h-12 bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block px-4 outline-none font-bold" placeholder="例: 追加モニター（27インチ）">
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">希望数量 <span class="text-rose-500">*</span></span>
+                            <input id="desiredQuantity" type="number" min="1" value="1" class="w-full h-12 bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block px-4 outline-none font-bold">
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">希望期限 <span class="text-rose-500">*</span></span>
+                            <input id="desiredDueDate" type="date" class="w-full h-12 bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block px-4 outline-none font-bold">
+                        </label>
+                        <label class="block md:col-span-2">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">希望理由 <span class="text-rose-500">*</span></span>
+                            <textarea id="requestReason" rows="5" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block p-4 outline-none font-medium resize-none" placeholder="希望理由を入力してください"></textarea>
+                        </label>
+                        <div class="block md:col-span-2">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">添付ファイル</span>
+                            <div id="attachmentDropzone" class="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/80 p-6 text-center transition-colors">
+                                <div class="mx-auto mb-3 h-12 w-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 12v9m0-9l-3 3m3-3l3 3"></path></svg>
+                                </div>
+                                <p class="text-sm font-bold text-slate-700">ここに画像をドラッグ＆ドロップ、またはファイルを選択してください。</p>
+                                <p class="mt-1 text-xs font-medium text-slate-400">jpg / jpeg / png / pdf に対応</p>
+                                <button type="button" onclick="document.getElementById('attachmentInput').click()" class="mt-4 inline-flex items-center justify-center h-10 px-4 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 transition-colors shadow-sm">ファイル選択</button>
+                                <input id="attachmentInput" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" multiple class="hidden">
+                            </div>
+                            <div id="attachmentPreviewWrap" class="hidden mt-4">
+                                <h3 class="text-[12px] font-black text-slate-600 mb-3">プレビュー</h3>
+                                <div id="attachmentPreviewList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                            </div>
+                        </div>
+                        <label class="block md:col-span-2">
+                            <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">備考</span>
+                            <textarea id="requestNote" rows="4" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block p-4 outline-none font-medium resize-none" placeholder="補足事項があれば入力してください"></textarea>
+                        </label>
+                        <p id="requestCreateError" class="hidden md:col-span-2 text-sm font-bold text-rose-600"></p>
+                    </div>
+                    <div class="px-8 py-5 border-t border-slate-200/60 bg-white/60 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                        <button type="button" onclick="cancelRequestForm()" class="inline-flex items-center justify-center h-11 px-6 bg-white border border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:bg-slate-50 transition-colors">取消</button>
+                        <button type="button" onclick="submitRequestForm()" class="inline-flex items-center justify-center h-11 px-6 bg-slate-900 text-white text-sm font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-sm">確認</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    function submitRequestForm() {
+        const error = document.getElementById('requestCreateError');
+        const itemName = document.getElementById('desiredItemName').value.trim();
+        const quantity = Number(document.getElementById('desiredQuantity').value);
+        const dueDate = document.getElementById('desiredDueDate').value;
+        const reason = document.getElementById('requestReason').value.trim();
+
+        const validations = [
+            [!itemName, '希望備品名を入力してください。'],
+            [!quantity || quantity < 1, '希望数量を入力してください。'],
+            [!dueDate, '希望期限を入力してください。'],
+            [!reason, '希望理由を入力してください。']
+        ];
+        const failed = validations.find(([condition]) => condition);
+        if (failed) {
+            error.textContent = failed[1];
+            error.classList.remove('hidden');
+            return;
+        }
+
+        error.classList.add('hidden');
+        if (confirm('要望を登録します。よろしいですか？')) {
+            alert('要望を登録しました。承認状況は申請中、対応状況は未対応として登録されます。');
+            window.location.href = '/requests';
+        }
+    }
+
+    function cancelRequestForm() {
+        if (confirm('入力内容を破棄して一覧へ戻ります。よろしいですか？')) {
+            window.location.href = '/requests';
+        }
+    }
+
+    const attachedFiles = [];
+    const attachmentInput = document.getElementById('attachmentInput');
+    const attachmentDropzone = document.getElementById('attachmentDropzone');
+    const attachmentPreviewWrap = document.getElementById('attachmentPreviewWrap');
+    const attachmentPreviewList = document.getElementById('attachmentPreviewList');
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+
+    function addAttachmentFiles(files) {
+        Array.from(files).forEach(file => {
+            const extension = file.name.split('.').pop().toLowerCase();
+            if (!allowedExtensions.includes(extension)) {
+                alert('jpg / jpeg / png / pdf ファイルのみ追加できます。');
+                return;
+            }
+            attachedFiles.push({
+                id: `${file.name}-${file.size}-${Date.now()}-${Math.random()}`,
+                file,
+                url: file.type.startsWith('image/') ? URL.createObjectURL(file) : ''
+            });
+        });
+        renderAttachmentPreview();
+    }
+
+    function removeAttachmentFile(index) {
+        if (index >= 0) {
+            if (attachedFiles[index].url) URL.revokeObjectURL(attachedFiles[index].url);
+            attachedFiles.splice(index, 1);
+        }
+        renderAttachmentPreview();
+    }
+
+    function renderAttachmentPreview() {
+        attachmentPreviewWrap.classList.toggle('hidden', attachedFiles.length === 0);
+        attachmentPreviewList.innerHTML = attachedFiles.map((item, index) => {
+            const isImage = item.file.type.startsWith('image/');
+            const preview = isImage
+                ? `<img src="${item.url}" alt="" class="h-20 w-20 rounded-xl object-cover border border-slate-200 bg-white">`
+                : `<div class="h-20 w-20 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-rose-500 font-black text-xs">PDF</div>`;
+            return `
+                <div class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3">
+                    ${preview}
+                    <div class="min-w-0 flex-1">
+                        <p class="truncate text-sm font-bold text-slate-800">${item.file.name}</p>
+                        <p class="mt-1 text-xs font-medium text-slate-400">${Math.ceil(item.file.size / 1024)} KB</p>
+                    </div>
+                    <button type="button" onclick="removeAttachmentFile(${index})" class="h-8 px-3 rounded-lg border border-rose-100 bg-rose-50 text-[11px] font-bold text-rose-600 hover:bg-rose-100">削除</button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    attachmentInput.addEventListener('change', event => {
+        addAttachmentFiles(event.target.files);
+        event.target.value = '';
+    });
+    ['dragenter', 'dragover'].forEach(eventName => {
+        attachmentDropzone.addEventListener(eventName, event => {
+            event.preventDefault();
+            attachmentDropzone.classList.add('border-sky-300', 'bg-sky-50');
+        });
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        attachmentDropzone.addEventListener(eventName, event => {
+            event.preventDefault();
+            attachmentDropzone.classList.remove('border-sky-300', 'bg-sky-50');
+        });
+    });
+    attachmentDropzone.addEventListener('drop', event => addAttachmentFiles(event.dataTransfer.files));
+    </script>
+    <script src="/js/modals.js"></script>
+</body>
+</html>

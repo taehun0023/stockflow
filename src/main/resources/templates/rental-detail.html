@@ -173,7 +173,7 @@
                                 <p class="text-[15px] font-black text-slate-900">1 台</p>
                             </div>
                             <div>
-                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">貸出開始日時</label>
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">貸出日時</label>
                                 <div class="shrink-0 flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100 opacity-70">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <span class="text-[15px] font-bold text-slate-700">2026-04-21 10:15</span>
@@ -266,6 +266,30 @@
         modal.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const overdueSamples = {
+            'R-260401': {
+                status: '3日延滞中',
+                className: 'px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg border border-red-200',
+                returnTime: '2026-04-10 18:00'
+            }
+        };
+        const rentalId = decodeURIComponent(window.location.pathname.split('/').pop() || '');
+        const sample = overdueSamples[rentalId];
+        if (!sample) {
+            return;
+        }
+        const status = document.getElementById('rentalStatus');
+        const returnTime = document.getElementById('returnTime');
+        if (status) {
+            status.textContent = sample.status;
+            status.className = sample.className;
+        }
+        if (returnTime) {
+            returnTime.value = sample.returnTime;
+        }
+    });
     </script>
     <script src="/js/modals.js"></script>
 </body>

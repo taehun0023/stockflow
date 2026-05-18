@@ -12,7 +12,7 @@ public class LoginController {
 	@GetMapping("/")
 	public String root(Authentication authentication) {
 		if (authentication != null && authentication.isAuthenticated()) {
-			return "redirect:/dashboard";
+			return redirectByRole(authentication);
 		}
 		return "redirect:/login";
 	}
@@ -20,10 +20,12 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout,
+			@RequestParam(value = "expired", required = false) String expired,
+			@RequestParam(value = "locked", required = false) String locked,
 			Authentication authentication,
 			Model model) {
 		if (authentication != null && authentication.isAuthenticated()) {
-			return "redirect:/dashboard";
+			return redirectByRole(authentication);
 		}
 		if (error != null) {
 			model.addAttribute("showError", true);
@@ -33,6 +35,18 @@ public class LoginController {
 			model.addAttribute("showSuccess", true);
 			model.addAttribute("success", "ログアウトしました。");
 		}
+		if (expired != null) {
+			model.addAttribute("showSessionExpired", true);
+		}
+		if (locked != null) {
+			model.addAttribute("showAccountLocked", true);
+		}
 		return "login";
+	}
+
+	private String redirectByRole(Authentication authentication) {
+		boolean admin = authentication.getAuthorities().stream()
+				.anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+		return admin ? "redirect:/dashboard" : "redirect:/mypage";
 	}
 }

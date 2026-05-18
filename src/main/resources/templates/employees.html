@@ -136,14 +136,13 @@
                         </div>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
                             <option value="">全ての部署</option>
-                            <option value="IT">IT部</option>
-                            <option value="HR">人事部</option>
-                            <option value="Sales">営業部</option>
+                            <option value="営業部">営業部</option>
+                            <option value="IT部">IT部</option>
                         </select>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
-                            <option value="">全てのアカウント状態</option>
-                            <option value="Active">在職</option>
-                            <option value="Retired">退職</option>
+                            <option value="">全ての状態</option>
+                            <option value="在職">在職</option>
+                            <option value="退職">退職</option>
                         </select>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
                             <option value="">全ての権限</option>
@@ -175,20 +174,22 @@
                         <div class="overflow-x-auto"><table class="w-full text-left border-collapse whitespace-nowrap min-w-max">
                             <thead class="bg-slate-100/80 sticky top-0 z-10 backdrop-blur-md">
                                 <tr>
+                                    <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">社員番号</th>
                                     <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">姓</th>
                                     <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">名</th>
                                     <th class="px-6 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">メールアドレス</th>
                                     <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">所属部署</th>
                                     <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">電話番号</th>
-                                    <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">権限</th>
-                                    <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">アカウント状態</th>
-                                    <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">権限設定</th>
+                                    <th class="px-4 py-3 text-center text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">性別</th>
+                                    <th class="px-4 py-3 text-center text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">権限</th>
+                                    <th class="px-4 py-3 text-center text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-r border-slate-200/50">在籍状態</th>
                                     <th class="px-4 py-3 text-[11px] font-black text-slate-500 tracking-wider uppercase border-b border-slate-200/50 text-center">操作</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200/50 bg-white/40">
                                 <!-- Sample Row 1 -->
                                 <tr class="hover:bg-white transition-colors group">
+                                    <td class="px-4 py-3 text-[13px] font-bold text-slate-700 border-r border-slate-200/50">EMP-0001</td>
                                     <td class="px-4 py-3 text-[13px] font-bold text-slate-900 border-r border-slate-200/50">
                                         <a href="/employee-detail" class="hover:text-sky-600 transition-colors">黒崎</a>
                                     </td>
@@ -200,31 +201,24 @@
                                     </td>
                                     <td class="px-4 py-3 text-[13px] font-medium text-slate-600 border-r border-slate-200/50">IT部</td>
                                     <td class="px-4 py-3 text-[13px] font-medium text-slate-600 border-r border-slate-200/50">010-1111-2222</td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-black rounded-md border border-indigo-100">ADMIN</span>
+                                    <td class="px-4 py-3 text-center text-[13px] font-medium text-slate-600 border-r border-slate-200/50">未設定</td>
+                                    <td class="px-4 py-3 text-center border-r border-slate-200/50">
+                                        <span class="inline-flex min-w-[52px] justify-center px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-black rounded-md border border-indigo-100">ADMIN</span>
                                     </td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <select class="bg-slate-50 border border-slate-200 text-slate-700 text-[12px] font-bold rounded-md focus:ring-sky-500 focus:border-sky-500 block w-full outline-none px-2 py-1">
-                                            <option value="active" selected="">在職</option>
-                                            <option value="retired">退職</option>
-                                        </select>
-                                    </td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <select class="bg-slate-50 border border-slate-200 text-slate-700 text-[12px] font-bold rounded-md focus:ring-sky-500 focus:border-sky-500 block w-full outline-none px-2 py-1">
-                                            <option value="admin" selected="">ADMIN</option>
-                                            <option value="user">USER</option>
-                                        </select>
+                                    <td class="px-4 py-3 text-center border-r border-slate-200/50">
+                                        <span class="inline-flex min-w-[46px] items-center justify-center px-2 py-1 rounded-md text-[11px] font-black bg-emerald-50 text-emerald-700 border border-emerald-100">在職</span>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="shrink-0 flex items-center justify-center gap-2">
-                                            <button onclick="openEditModal()" class="px-3 py-1.5 bg-white text-slate-600 text-[11px] font-bold rounded shadow-sm hover:shadow hover:text-slate-900 transition-all border border-slate-200">編集</button>
-                                            <button class="px-3 py-1.5 bg-white text-rose-500 text-[11px] font-bold rounded shadow-sm hover:shadow hover:bg-rose-50 transition-all border border-rose-200">削除</button>
+                                            <button onclick="openEditModal('黒崎 苺', 'abcde12@weavus.com')" class="px-3 py-1.5 bg-white text-slate-600 text-[11px] font-bold rounded shadow-sm hover:shadow hover:text-slate-900 transition-all border border-slate-200">編集</button>
+                                            <button onclick="openLogicalDeleteModal('黒崎 苺', 'abcde12@weavus.com', '在職')" class="px-3 py-1.5 bg-white text-rose-500 text-[11px] font-bold rounded shadow-sm hover:shadow hover:bg-rose-50 transition-all border border-rose-200">削除</button>
                                         </div>
                                     </td>
                                 </tr>
                                 
                                 <!-- Sample Row 2 -->
                                 <tr class="hover:bg-white transition-colors group">
+                                    <td class="px-4 py-3 text-[13px] font-bold text-slate-700 border-r border-slate-200/50">EMP-0002</td>
                                     <td class="px-4 py-3 text-[13px] font-bold text-slate-900 border-r border-slate-200/50">
                                         <a href="/employee-detail" class="hover:text-sky-600 transition-colors">山田</a>
                                     </td>
@@ -236,26 +230,23 @@
                                     </td>
                                     <td class="px-4 py-3 text-[13px] font-medium text-slate-600 border-r border-slate-200/50">営業部</td>
                                     <td class="px-4 py-3 text-[13px] font-medium text-slate-600 border-r border-slate-200/50">03-1234-5678</td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-black rounded-md border border-slate-200">USER</span>
+                                    <td class="px-4 py-3 text-center text-[13px] font-medium text-slate-600 border-r border-slate-200/50">男性</td>
+                                    <td class="px-4 py-3 text-center border-r border-slate-200/50">
+                                        <span class="inline-flex min-w-[52px] justify-center px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-black rounded-md border border-slate-200">USER</span>
                                     </td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <select class="bg-rose-50 border border-rose-200 text-rose-700 text-[12px] font-bold rounded-md focus:ring-sky-500 focus:border-sky-500 block w-full outline-none px-2 py-1">
-                                            <option value="active">在職</option>
-                                            <option value="retired" selected="">退職</option>
-                                        </select>
-                                    </td>
-                                    <td class="px-4 py-3 border-r border-slate-200/50">
-                                        <select class="bg-slate-50 border border-slate-200 text-slate-700 text-[12px] font-bold rounded-md focus:ring-sky-500 focus:border-sky-500 block w-full outline-none px-2 py-1">
-                                            <option value="admin">ADMIN</option>
-                                            <option value="user" selected="">USER</option>
-                                        </select>
+                                    <td class="px-4 py-3 text-center border-r border-slate-200/50">
+                                        <span class="inline-flex min-w-[46px] items-center justify-center px-2 py-1 rounded-md text-[11px] font-black bg-rose-50 text-rose-700 border border-rose-100">退職</span>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="shrink-0 flex items-center justify-center gap-2">
-                                            <button onclick="openEditModal()" class="px-3 py-1.5 bg-white text-slate-600 text-[11px] font-bold rounded shadow-sm hover:shadow hover:text-slate-900 transition-all border border-slate-200">編集</button>
-                                            <button class="px-3 py-1.5 bg-white text-rose-500 text-[11px] font-bold rounded shadow-sm hover:shadow hover:bg-rose-50 transition-all border border-rose-200 opacity-50 cursor-not-allowed">削除</button>
+                                            <button onclick="openEditModal('山田 太郎', 'yamada.taro@weavus.com')" class="px-3 py-1.5 bg-white text-slate-600 text-[11px] font-bold rounded shadow-sm hover:shadow hover:text-slate-900 transition-all border border-slate-200">編集</button>
+                                            <button onclick="openLogicalDeleteModal('山田 太郎', 'yamada.taro@weavus.com', '退職')" class="px-3 py-1.5 bg-white text-rose-500 text-[11px] font-bold rounded shadow-sm hover:shadow hover:bg-rose-50 transition-all border border-rose-200">削除</button>
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr class="hidden">
+                                    <td colspan="10" class="py-12 text-center text-sm font-bold text-slate-400">
+                                        該当する利用者はありません。
                                     </td>
                                 </tr>
                             </tbody>

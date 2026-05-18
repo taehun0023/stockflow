@@ -145,7 +145,7 @@
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-40 p-2.5 outline-none font-medium">
                             <option value="">予約状態</option>
                             <option value="Active">予約中</option>
-                            <option value="Delayed">予約中(遅延)</option>
+                            <option value="Delayed">予約中（遅延）</option>
                             <option value="Cancelled">取消済</option>
                             <option value="Expired">失効済</option>
                         </select>
@@ -157,15 +157,15 @@
                         </select>
                     </div>
                     <div class="shrink-0 flex items-center gap-3 shrink-0 ml-auto">
-                        <a href="/rental-apply" class="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
+                        <a href="/items?mode=reservation" class="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            新規予約(管理者代理)
+                            新規予約
                         </a>
                     </div>
                 </div>
 
                 <!-- Table Card -->
-                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-17rem)]">
+                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-14rem)]">
                     <div class="px-10 py-6 border-b border-slate-200/50 bg-white/40 shrink-0 flex justify-between items-center">
                         <h2 class="text-xl font-black text-slate-900 tracking-tight">予約一覧(管理者)</h2>
                         <span class="text-xs font-bold text-slate-500">※ 予約開始日を過ぎて貸出移行していない予約は「失効」が可能です。</span>
@@ -177,13 +177,13 @@
                             <thead class="bg-slate-100/50 sticky top-0 z-10 lg:text-sm text-xs">
                                 <tr>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">予約ID</th>
-                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">対象備品名</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28 w-max">予約者名</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">利用開始日</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">利用終了日</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-16">数量</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-24">状態</th>
-                                                                        <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-36">アクション</th>
+                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">備品名</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28 w-max">予約者</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">利用開始日時</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">利用終了日時</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">予約数量</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">予約状態</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-36">アクション</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200/50 bg-white/40 lg:text-sm text-xs">
@@ -198,10 +198,10 @@
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">鈴木 一郎</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-900 font-bold">2026/04/20 09:00</span>
+                                        <span class="text-xs text-slate-900 font-bold">2026-04-20 09:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-900 font-bold">2026/04/25 18:00</span>
+                                        <span class="text-xs text-slate-900 font-bold">2026-04-25 18:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="font-bold text-slate-900">1</span>
@@ -213,8 +213,8 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
-                                            <button onclick="openLendModal('B-260501')" style="display: none" class="lend-btn px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">貸出</button>
                                             <button onclick="openCancelModal('B-260501', '鈴木 一郎')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">取消</button>
+                                            <a href="/reservation-detail?id=B-260501" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -229,23 +229,23 @@
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">山田 太郎</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-amber-700 font-bold">2026/04/12 09:00</span>
+                                        <span class="text-xs text-amber-700 font-bold">2026-04-12 09:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-900 font-bold">2026/04/15 18:00</span>
+                                        <span class="text-xs text-slate-900 font-bold">2026-04-15 18:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="font-bold text-slate-900">1</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
                                         <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700 border border-amber-200">
-                                            予約中(遅延)
+                                            予約中（遅延）
                                         </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-1.5 w-full">
-                                            <button onclick="openLendModal('B-260492')" style="display: none" class="lend-btn px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">貸出</button>
                                             <button onclick="openCancelModal('B-260492', '山田 太郎')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">取消</button>
+                                            <a href="/reservation-detail?id=B-260492" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -260,10 +260,10 @@
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">山田 花子</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                        <span class="text-xs text-slate-400 font-bold">2026-04-10 09:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                        <span class="text-xs text-slate-400 font-bold">2026-04-10 18:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="font-bold text-slate-400">1</span>
@@ -274,7 +274,7 @@
                                         </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <span class="text-[11px] font-bold text-slate-400">-</span>
+                                        <a href="/reservation-detail?id=B-260410" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                     </td>
                                 </tr>
                                 
@@ -288,10 +288,10 @@
                                     </div></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">高橋 健太</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                        <span class="text-xs text-slate-400 font-bold">2026-04-08 09:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-400 font-bold">-</span>
+                                        <span class="text-xs text-slate-400 font-bold">2026-04-08 18:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="font-bold text-slate-400">1</span>
@@ -302,7 +302,7 @@
                                         </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center px-3 align-middle">
-                                        <span class="text-[11px] font-bold text-slate-400">システム失効処理済</span>
+                                        <a href="/reservation-detail?id=B-260399" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                     </td>
                                 </tr>
                             </tbody>

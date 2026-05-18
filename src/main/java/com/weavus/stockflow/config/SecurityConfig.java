@@ -17,14 +17,19 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-						.requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
+						.requestMatchers("/dashboard").hasRole("ADMIN")
+						.requestMatchers("/rentals", "/rentals/**").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.formLogin(form -> form
 						.loginPage("/login")
 						.loginProcessingUrl("/login")
 						.usernameParameter("email")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/dashboard", true)
+						.successHandler((request, response, authentication) -> {
+							boolean admin = authentication.getAuthorities().stream()
+									.anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+							response.sendRedirect(admin ? "/dashboard" : "/mypage");
+						})
 						.failureUrl("/login?error")
 						.permitAll())
 				.logout(logout -> logout
@@ -34,8 +39,10 @@ public class SecurityConfig {
 						.clearAuthentication(true)
 						.deleteCookies("JSESSIONID")
 						.permitAll())
+				.exceptionHandling(exception -> exception
+						.accessDeniedPage("/access-denied"))
 				.sessionManagement(session -> session
-						.invalidSessionUrl("/login"));
+						.invalidSessionUrl("/login?expired"));
 
 		return http.build();
 	}

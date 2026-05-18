@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - 取込結果確認</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="bg-mesh min-h-screen font-sans">
+    <main class="p-4 lg:p-10 w-full max-w-[1180px] mx-auto space-y-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <a href="/csv-inventory" class="text-[12px] font-black text-sky-600 hover:text-sky-700">CSV在庫更新へ戻る</a>
+                <h1 class="mt-2 text-2xl font-black text-slate-900">取込結果確認</h1>
+                <p class="mt-1 text-[13px] font-bold text-slate-500">検証結果、成功/失敗件数、再取込処理を確認します。</p>
+            </div>
+            <button onclick="openCsvImportModal()" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-black text-white hover:bg-slate-800">再取込処理</button>
+        </div>
+
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><p class="text-[11px] font-black text-slate-500">総件数</p><p class="mt-1 text-3xl font-black text-slate-900">132</p></div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><p class="text-[11px] font-black text-emerald-600">成功</p><p class="mt-1 text-3xl font-black text-slate-900">128</p></div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><p class="text-[11px] font-black text-amber-600">警告</p><p class="mt-1 text-3xl font-black text-slate-900">3</p></div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><p class="text-[11px] font-black text-rose-600">失敗</p><p class="mt-1 text-3xl font-black text-slate-900">1</p></div>
+        </section>
+
+        <section class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                <h2 class="text-base font-black text-slate-900">取込ログ</h2>
+                <span class="sf-status-pill bg-amber-50 text-amber-700">再取込可能</span>
+            </div>
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 text-[11px] font-black text-slate-500">
+                    <tr><th class="px-6 py-3">行</th><th class="px-6 py-3">管理番号</th><th class="px-6 py-3">結果</th><th class="px-6 py-3">メッセージ</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm font-bold text-slate-700">
+                    <tr><td class="px-6 py-4">1</td><td class="px-6 py-4">EQ-2026-001</td><td class="px-6 py-4 text-emerald-600">成功</td><td class="px-6 py-4">在庫情報を更新しました。</td></tr>
+                    <tr><td class="px-6 py-4">3</td><td class="px-6 py-4">EQ-2026-018</td><td class="px-6 py-4 text-rose-600">失敗</td><td class="px-6 py-4">DISPOSEDからAVAILABLEへの変更はできません。</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="/js/modals.js"></script>
+</body>
+</html>

@@ -132,7 +132,7 @@
             
             
             <!-- Title Area -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6">
                 <div>
                     <h1 class="text-[22px] font-bold tracking-tight text-slate-900 leading-tight">利用者ダッシュボード</h1>
                     <p class="text-[12px] font-medium text-slate-500 mt-1">現在の備品利用状況と通知を確認できます。</p>
@@ -141,14 +141,18 @@
                     <button class="shrink-0 flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg bg-white text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm">
                         お気に入り
                     </button>
-                    <button class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-[13px] font-bold text-white hover:bg-slate-800 transition-colors shadow-sm">
+                    <button onclick="openReservationRegisterModal()" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-[13px] font-bold text-white hover:bg-slate-800 transition-colors shadow-sm">
                         新規予約登録
                     </button>
                 </div>
             </div>
 
+            <div th:if="${showDashboardEmptyState}" class="sf-empty-state p-4 text-[12px] font-bold mb-6">
+                該当データがない場合は「表示できる予約・貸出・通知はありません。」としてこの領域に表示します。
+            </div>
+
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <!-- 貸出中 -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-4">
                     <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
@@ -196,7 +200,7 @@
             </div>
 
             <!-- Grid Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6 mb-6">
                 <!-- 延滞・返却期限リスト -->
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col h-auto">
                     <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center shrink-0">
@@ -208,59 +212,41 @@
                     </div>
                     <div class="overflow-y-auto flex-1 p-4">
                         <div class="space-y-1">
-                            <a href="#" onclick="openDetailModal('rental', 'プロジェクター EPSON', '映像機器', '延滞中', '2026-03-25', '2026-04-01', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
-                                <div class="shrink-0 flex items-center gap-3">
+                            <a href="#" onclick="openDetailModal('rental', 'プロジェクター EPSON', '映像機器', '延滞中', '2026-03-25', '2026-04-01', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="min-w-0 flex flex-1 items-center gap-3 pr-3">
                                     <div class="h-8 w-8 rounded-full border border-red-100 bg-white flex items-center justify-center shrink-0 text-red-500">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
-                                    <div class="w-40">
-                                        <p class="text-[13px] font-bold text-slate-900">プロジェクター EPSON</p>
-                                        <p class="text-[11px] text-slate-400 font-medium">映像機器</p>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-[13px] font-bold text-slate-900 truncate">プロジェクター EPSON</p>
+                                        <p class="text-[11px] text-slate-400 font-medium truncate">映像機器</p>
                                     </div>
                                 </div>
-                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
-                                    
-                                    <div class="flex gap-2 min-w-[90px] justify-end">
-                                        <span class="text-[11px] font-bold text-red-600">5日 延滞</span>
-                                        <span class="text-[11px] font-bold text-red-600">延滞中</span>
-                                    </div>
-                                </div>
+                                <span class="shrink-0 text-[11px] font-bold text-red-600 whitespace-nowrap text-right">5日延滞中</span>
                             </a>
-                            <a href="#" onclick="openDetailModal('rental', 'MacBook Pro 14&quot;', 'PC・周辺機器', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
-                                <div class="shrink-0 flex items-center gap-3">
+                            <a href="#" onclick="openDetailModal('rental', 'MacBook Pro 14&quot;', 'PC・周辺機器', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="min-w-0 flex flex-1 items-center gap-3 pr-3">
                                     <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
-                                    <div class="w-40">
-                                        <p class="text-[13px] font-bold text-slate-900">MacBook Pro 14"</p>
-                                        <p class="text-[11px] text-slate-400 font-medium">PC・周辺機器</p>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-[13px] font-bold text-slate-900 truncate">MacBook Pro 14"</p>
+                                        <p class="text-[11px] text-slate-400 font-medium truncate">PC・周辺機器</p>
                                     </div>
                                 </div>
-                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
-                                    
-                                    <div class="flex gap-2 min-w-[90px] justify-end">
-                                        <span class="text-[11px] font-bold text-amber-500">あと2日</span>
-                                        <span class="text-[11px] font-bold text-amber-500">期限間近</span>
-                                    </div>
-                                </div>
+                                <span class="shrink-0 text-[11px] font-bold text-amber-500 whitespace-nowrap text-right">あと2日</span>
                             </a>
-                            <a href="#" onclick="openDetailModal('rental', 'iPhone 15 Pro', 'スマートフォン', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white flex-col lg:flex-row items-start lg:items-center gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
-                                <div class="shrink-0 flex items-center gap-3">
+                            <a href="#" onclick="openDetailModal('rental', 'iPhone 15 Pro', 'スマートフォン', '期限間近', '2026-04-05', '2026-04-12', '/rental-detail'); return false;" class="flex items-center justify-between py-2 bg-white gap-2 rounded-xl border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-colors px-2 -mx-2">
+                                <div class="min-w-0 flex flex-1 items-center gap-3 pr-3">
                                     <div class="h-8 w-8 rounded-full border border-amber-100 bg-white flex items-center justify-center shrink-0 text-amber-500">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
-                                    <div class="w-40">
-                                        <p class="text-[13px] font-bold text-slate-900">iPhone 15 Pro</p>
-                                        <p class="text-[11px] text-slate-400 font-medium">スマートフォン</p>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-[13px] font-bold text-slate-900 truncate">iPhone 15 Pro</p>
+                                        <p class="text-[11px] text-slate-400 font-medium truncate">スマートフォン</p>
                                     </div>
                                 </div>
-                                <div class="shrink-0 flex items-center gap-6 justify-end flex-1 w-full lg:w-auto mt-2 lg:mt-0">
-                                    
-                                    <div class="flex gap-2 min-w-[90px] justify-end">
-                                        <span class="text-[11px] font-bold text-amber-500">あと2日</span>
-                                        <span class="text-[11px] font-bold text-amber-500">期限間近</span>
-                                    </div>
-                                </div>
+                                <span class="shrink-0 text-[11px] font-bold text-amber-500 whitespace-nowrap text-right">あと2日</span>
                             </a>
                         </div>
                     </div>

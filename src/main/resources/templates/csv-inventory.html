@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - CSV在庫更新</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="bg-mesh min-h-screen font-sans">
+    <main class="p-4 lg:p-10 w-full max-w-[1180px] mx-auto space-y-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <a href="/equipments" class="text-[12px] font-black text-sky-600 hover:text-sky-700">在庫管理へ戻る</a>
+                <h1 class="mt-2 text-2xl font-black text-slate-900">CSV在庫更新</h1>
+                <p class="mt-1 text-[13px] font-bold text-slate-500">在庫情報一括更新、定期在庫反映、データ検証を行います。</p>
+            </div>
+            <button onclick="openCsvImportModal()" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-black text-white hover:bg-slate-800">CSV取込</button>
+        </div>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                <h2 class="text-base font-black text-slate-900">取込ファイル</h2>
+                <div class="mt-4 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 p-8 text-center">
+                    <p class="text-sm font-black text-slate-700">CSVファイルを選択</p>
+                    <p class="mt-2 text-xs font-bold text-slate-500">管理番号、バーコード、状態、保管場所、在庫数量を検証します。</p>
+                    <input type="file" accept=".csv" class="mt-5 text-sm font-bold text-slate-600">
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                <h2 class="text-base font-black text-slate-900">検証結果</h2>
+                <div class="mt-4 space-y-3">
+                    <div class="flex items-center justify-between rounded-xl bg-emerald-50 px-4 py-3"><span class="text-xs font-black text-emerald-700">成功</span><span class="text-xl font-black text-slate-900">128</span></div>
+                    <div class="flex items-center justify-between rounded-xl bg-amber-50 px-4 py-3"><span class="text-xs font-black text-amber-700">警告</span><span class="text-xl font-black text-slate-900">3</span></div>
+                    <div class="flex items-center justify-between rounded-xl bg-rose-50 px-4 py-3"><span class="text-xs font-black text-rose-700">失敗</span><span class="text-xl font-black text-slate-900">1</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                <h2 class="text-base font-black text-slate-900">バーコード登録・照合</h2>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input class="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold outline-none focus:border-sky-400" placeholder="管理番号 EQ-2026-001">
+                    <input class="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold outline-none focus:border-sky-400" placeholder="バーコード SF-BC-2026-0001">
+                </div>
+                <button onclick="openBarcodeModal()" class="mt-4 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-black text-slate-700 hover:bg-slate-50">照合する</button>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                <h2 class="text-base font-black text-slate-900">エラー通知</h2>
+                <div class="mt-4 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700">3行目: 状態 DISPOSED の備品は貸出可能に変更できません。</div>
+                <a href="/csv-import-result" class="mt-4 inline-flex rounded-xl bg-slate-900 px-4 py-2 text-xs font-black text-white hover:bg-slate-800">取込結果確認へ</a>
+            </div>
+        </section>
+    </main>
+    <script src="/js/modals.js"></script>
+</body>
+</html>

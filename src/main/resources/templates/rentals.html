@@ -139,7 +139,7 @@
                             <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
                         <div class="relative w-64">
-                            <input type="text" id="dateRangeFilter" placeholder="期間範囲 (開始日 ~ 終了日)" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
+                            <input type="text" id="dateRangeFilter" placeholder="貸出期間（貸出日時～返却予定日時）" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
                             <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
@@ -147,7 +147,6 @@
                             <option value="Overdue" class="text-red-500 font-bold">延滞中</option>
                             <option value="InUse">貸出中</option>
                             <option value="Returned">返却済</option>
-                            <option value="Lost">紛失・破損</option>
                         </select>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-40 p-2.5 outline-none font-medium">
                             <option value="">全ての対象備品</option>
@@ -164,8 +163,23 @@
                         </button>
                         <a href="/rental-apply" class="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            新規貸出申請
+                            貸出登録
                         </a>
+                    </div>
+                </div>
+
+                <div class="sf-info-strip p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                    <div>
+                        <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest">返却前通知</p>
+                        <p class="mt-1 text-[12px] font-bold text-sky-700">返却予定日の1日前に利用者へ通知します。</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest">延滞通知</p>
+                        <p class="mt-1 text-[12px] font-bold text-red-600">期限超過時は管理者・利用者双方へ通知します。</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest">延長制御</p>
+                        <p class="mt-1 text-[12px] font-bold text-slate-600">後続予約がない場合のみ延長できます。</p>
                     </div>
                 </div>
 
@@ -181,13 +195,13 @@
                             <thead class="bg-slate-100/50 sticky top-0 z-10 lg:text-sm text-xs">
                                 <tr>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">貸出ID</th>
-                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">対象備品名</th>
+                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">備品名</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28 w-max">利用者名</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">貸出日時</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">利用終了日</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-16">数量</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">返却予定日時</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">貸出数量</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-24">貸出状態</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-36">アクション</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-44">アクション</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200/50 bg-white/40 lg:text-sm text-xs">
@@ -195,7 +209,7 @@
                                 <!-- Row 1: Overdue -->
                                 <tr class="hover:bg-red-50/50 bg-red-50/20 transition-colors">
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <a href="/rental-detail?id=R-260401" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260401</a>
+                                        <a href="/rentals/R-260401" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260401</a>
                                     </td>
                                     <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
                                         <span class="font-bold text-slate-900">MacBook Pro 14インチ</span>
@@ -205,23 +219,20 @@
                                         <span class="text-xs text-slate-600 font-medium whitespace-nowrap">2026/04/01 09:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <div class="shrink-0 flex items-center justify-center gap-2">
-                                            <span class="text-xs text-red-600 font-bold whitespace-nowrap">2026/04/10 18:00</span>
-                                            <span class="text-[10px] text-red-500 font-bold border border-red-200 bg-red-50 px-1 rounded whitespace-nowrap shrink-0">3日 延滞</span>
-                                        </div>
+                                        <span class="text-xs text-slate-900 font-bold whitespace-nowrap">2026/04/10 18:00</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center font-bold text-slate-900 px-3 align-middle">
                                         1
                                     </td>
                                     <td class="whitespace-nowrap py-4 text-center border-r border-slate-200/50 px-3 align-middle">
                                         <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-black bg-red-100 text-red-700 border border-red-200 tracking-wider whitespace-nowrap">
-                                            延滞中
+                                            3日延滞中
                                         </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
                                             <button onclick="openReturnModal('R-260401', 'MacBook Pro 14インチ', 1)" class="px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">返却</button>
-                                            <button onclick="openExtendModal('R-260401', '2026-04-10 18:00')" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">延長</button>
+                                            <a href="/rentals/R-260401" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -229,7 +240,7 @@
                                 <!-- Row 2: In Use (Approaching end date) -->
                                 <tr class="hover:bg-white/80 transition-colors">
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <a href="/rental-detail?id=R-260405" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260405</a>
+                                        <a href="/rentals/R-260405" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260405</a>
                                     </td>
                                     <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
                                         <span class="font-bold text-slate-900">プロジェクター EPSON EH-TW</span>
@@ -253,6 +264,7 @@
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
                                             <button onclick="openReturnModal('R-260405', 'プロジェクター EPSON EH-TW', 1)" class="px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">返却</button>
                                             <button onclick="openExtendModal('R-260405', '2026-04-14 18:00')" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">延長</button>
+                                            <a href="/rentals/R-260405" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -260,7 +272,7 @@
                                 <!-- Row 3: In Use (Consumable - usually consumed, but maybe bulk borrowed) -->
                                 <tr class="hover:bg-white/80 transition-colors">
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <a href="/rental-detail?id=R-260408" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260408</a>
+                                        <a href="/rentals/R-260408" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">R-260408</a>
                                     </td>
                                     <td class="py-4 border-r border-slate-200/50 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
                                         <span class="font-bold text-slate-900">会議用ホワイトボードマーカーセット</span>
@@ -284,6 +296,7 @@
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
                                             <button onclick="openReturnModal('R-260408', 'ホワイトボードマーカーセット', 5)" class="px-3 py-1.5 bg-slate-800 text-white text-[11px] font-bold rounded-lg hover:bg-slate-900 transition-colors shadow-sm shrink-0">返却</button>
                                             <button onclick="openExtendModal('R-260408', '2026-04-20 18:00')" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">延長</button>
+                                            <a href="/rentals/R-260408" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -291,7 +304,7 @@
                                 <!-- Row 4: Returned -->
                                 <tr class="hover:bg-slate-50/50 bg-slate-50/30 transition-colors">
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-400 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <a href="/rental-detail?id=R-260388" class="text-slate-400 hover:text-slate-500 underline underline-offset-2 font-bold tracking-tight">R-260388</a>
+                                        <a href="/rentals/R-260388" class="text-slate-400 hover:text-slate-500 underline underline-offset-2 font-bold tracking-tight">R-260388</a>
                                     </td>
                                     <td class="py-4 border-r border-slate-200/50 opacity-60 px-3 align-middle"><div class="truncate max-w-[120px] lg:max-w-[200px] xl:max-w-[250px] font-bold text-slate-900">
                                         <span class="font-bold text-slate-500">iPad Pro 11インチ</span>
@@ -313,8 +326,13 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
-                                            <button onclick="confirmCancelReturn('R-260388')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 hover:border-rose-300 transition-colors shadow-sm shrink-0">取消</button>
+                                            <a href="/rentals/R-260388" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-300 text-[11px] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr class="hidden">
+                                    <td colspan="8" class="py-12 text-center text-sm font-bold text-slate-400">
+                                        該当する貸出情報はありません。
                                     </td>
                                 </tr>
                             </tbody>

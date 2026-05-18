@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンタープライズポータル - 操作履歴</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="bg-mesh min-h-screen font-sans">
+    <main class="p-4 lg:p-10 w-full max-w-[1180px] mx-auto space-y-6">
+        <div>
+            <a href="/dashboard" class="text-[12px] font-black text-sky-600 hover:text-sky-700">ダッシュボードへ戻る</a>
+            <h1 class="mt-2 text-2xl font-black text-slate-900">操作履歴</h1>
+            <p class="mt-1 text-[13px] font-bold text-slate-500">削除、状態変更、承認、返却などの重要操作を参照します。</p>
+        </div>
+        <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <input class="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold outline-none focus:border-sky-400" placeholder="利用者・操作名">
+                <select class="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold outline-none focus:border-sky-400"><option>全操作</option><option>削除</option><option>状態変更</option><option>承認</option><option>返却</option></select>
+                <input type="date" class="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold outline-none focus:border-sky-400">
+                <button class="rounded-xl bg-slate-900 px-4 py-3 text-sm font-black text-white hover:bg-slate-800">検索</button>
+            </div>
+        </section>
+        <section class="sf-history-list">
+            <div class="sf-history-item"><div><p class="text-sm font-black text-slate-900">要望承認</p><p class="text-xs font-bold text-slate-500">REQ-0024 / admin@test.com</p></div><span class="text-xs font-bold text-slate-400">2026-04-30 16:20</span></div>
+            <div class="sf-history-item"><div><p class="text-sm font-black text-slate-900">返却処理</p><p class="text-xs font-bold text-slate-500">R-260401 / MacBook Pro 14インチ</p></div><span class="text-xs font-bold text-slate-400">2026-04-30 15:40</span></div>
+            <div class="sf-history-item"><div><p class="text-sm font-black text-slate-900">備品状態変更</p><p class="text-xs font-bold text-slate-500">EQ-2026-018 / BROKEN</p></div><span class="text-xs font-bold text-slate-400">2026-04-30 14:10</span></div>
+        </section>
+    </main>
+    <script src="/js/modals.js"></script>
+</body>
+</html>

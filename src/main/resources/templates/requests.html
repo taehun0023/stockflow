@@ -139,26 +139,39 @@
                             <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
                         <div class="relative w-64">
-                            <input type="text" id="dateRangeFilter" placeholder="期間範囲 (開始日 ~ 終了日)" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
+                            <input type="text" id="dateRangeFilter" placeholder="期間範囲（申請日）" class="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block p-2.5 outline-none font-medium pl-8">
                             <svg class="h-4 w-4 text-slate-400 absolute top-3 left-3 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
-                            <option value="">要望状態</option>
+                            <option value="">承認状況</option>
                             <option>申請中</option>
-                            <option>承認済</option>
+                            <option>承認</option>
                             <option>却下</option>
+                        </select>
+                        <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
+                            <option value="">対応状況</option>
+                            <option>未対応</option>
+                            <option>対応中</option>
+                            <option>対応済</option>
                         </select>
                         <select class="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-32 p-2.5 outline-none font-medium">
                             <option value="">要望種別</option>
                             <option>新規購入</option>
                             <option>追加購入</option>
-                            <option>改善要望</option>
+                            <option>代替品</option>
+                            <option>改善希望</option>
                         </select>
+                    </div>
+                    <div class="shrink-0 flex items-center gap-3 ml-auto">
+                        <a href="/requests/new" class="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            要望登録
+                        </a>
                     </div>
                 </div>
 
                 <!-- Table Card -->
-                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-17rem)]">
+                <div class="glass-card rounded-[2rem] overflow-hidden flex flex-col h-[calc(100vh-14rem)]">
                     <div class="px-10 py-6 border-b border-slate-200/50 bg-white/40 shrink-0 flex justify-between items-center">
                         <h2 class="text-xl font-black text-slate-900 tracking-tight">要望一覧(管理者)</h2>
                     </div>
@@ -171,10 +184,10 @@
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-20">要望ID</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28 w-max">申請者</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">申請日</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">種別</th>
-                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">内容</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-28">要望種別</th>
+                                    <th class="py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle">要望内容</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">承認状況</th>
-                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">対応ステータス</th>
+                                    <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-r border-slate-200/50 text-center px-3 align-middle w-32">対応状況</th>
                                     <th class="whitespace-nowrap py-4 font-bold text-slate-700 border-b border-slate-200/50 text-center px-3 align-middle w-36">アクション</th>
                                 </tr>
                             </thead>
@@ -187,7 +200,7 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">山田 太郎</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-600 font-bold">2026/04/20</span>
+                                        <span class="text-xs text-slate-600 font-bold">2026-04-20</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100">新規購入</span>
@@ -209,45 +222,42 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
-                                            <button onclick="confirmAction('承認', 'この要望を承認しますか？', '承認しました')" class="px-3 py-1.5 bg-sky-600 text-white text-[11px] font-bold rounded-lg hover:bg-sky-700 transition-colors shadow-sm shrink-0">承認</button>
-                                            <button onclick="openModal('rejectModalList', 'REQ-0024')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">却下</button>
+                                            <button onclick="openApprovalConfirm('REQ-0024')" class="px-3 py-1.5 bg-sky-600 text-white text-[11px] font-bold rounded-lg hover:bg-sky-700 transition-colors shadow-sm shrink-0">承認</button>
+                                            <button onclick="openRequestRejectModal('REQ-0024')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">却下</button>
+                                            <a href="/request-detail?id=REQ-0024" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
                                 
                                 <!-- Row 2 (Rejected) -->
-                                <tr class="hover:bg-white/80 transition-colors bg-slate-50/20">
+                                <tr class="hover:bg-white/80 transition-colors">
                                     <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <a href="/request-detail?id=REQ-0020" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">REQ-0020</a>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">渡辺 翔太</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle leading-none">
-                                        <span class="text-xs text-slate-400 font-bold font-mono">2026/04/10</span>
+                                        <span class="text-xs text-slate-600 font-bold font-mono">2026-04-10</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold border border-slate-200 text-slate-400">改善要望</span>
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-purple-50 text-purple-700 border border-purple-100">改善希望</span>
                                     </td>
                                     <td class="py-4 border-r border-slate-200/50 px-3 align-middle text-center">
-                                        <div class="truncate max-w-[200px] font-bold text-slate-400 mx-auto">
+                                        <div class="truncate max-w-[200px] font-bold text-slate-900 mx-auto">
                                             iPad Pro最新モデル
                                         </div>
                                     </td>
-                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle relative group">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-red-50 text-red-600 border border-red-100 cursor-help">
-                                            却下 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-red-50 text-red-600 border border-red-100">
+                                            却下
                                         </span>
-                                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 bg-slate-900 text-white text-[10px] p-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all invisible group-hover:visible w-48 shadow-2xl z-50 text-left pointer-events-none">
-                                            <p class="font-black mb-1 text-sky-400">却下理由:</p>
-                                            <p class="font-medium leading-relaxed">予備のキーボードが貸出可能です。在庫をご確認ください。</p>
-                                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-900"></div>
-                                        </div>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-400 border border-slate-200">-</span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">未対応</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
-                                            <button onclick="confirmAction('却下取消', 'この却下を取り消しますか？', '却下を取り消しました')" class="px-3 py-1.5 bg-rose-600 text-white text-[11px] font-bold rounded-lg hover:bg-rose-700 transition-colors shadow-sm shrink-0">却下取消</button>
+                                            <button onclick="openCancelRejectConfirm('REQ-0020')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">却下取消</button>
+                                            <a href="/request-detail?id=REQ-0020" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -259,7 +269,7 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">中村 健</span></td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
-                                        <span class="text-xs text-slate-600 font-bold">2026/04/18</span>
+                                        <span class="text-xs text-slate-600 font-bold">2026-04-18</span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">追加購入</span>
@@ -271,7 +281,7 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
                                         <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
-                                            承認済
+                                            承認
                                         </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
@@ -281,9 +291,64 @@
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
                                         <div class="shrink-0 flex items-center justify-center gap-2 w-full">
-                                            <button onclick="confirmAction('対応完了', '対応を完了としてマークしますか？', '対応を完了しました')" class="px-3 py-1.5 bg-emerald-600 text-white text-[11px] font-bold rounded-lg hover:bg-emerald-700 transition-colors shadow-sm shrink-0">対応完了</button>
-                                            <button onclick="openModal('rejectModalList', 'REQ-0022')" class="px-3 py-1.5 bg-white text-rose-600 border border-rose-200 text-[11px] font-bold rounded-lg hover:bg-rose-50 transition-colors shadow-sm shrink-0">却下</button>
+                                            <button onclick="openCompleteConfirm('REQ-0022')" class="px-3 py-1.5 bg-emerald-600 text-white text-[11px] font-bold rounded-lg hover:bg-emerald-700 transition-colors shadow-sm shrink-0">対応完了</button>
+                                            <a href="/request-detail?id=REQ-0022" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                         </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 4 (Approved / Pending) -->
+                                <tr class="hover:bg-white/80 transition-colors">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/request-detail?id=REQ-0025" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">REQ-0025</a>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">佐藤 美咲</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-600 font-bold">2026-04-21</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100">新規購入</span>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle text-center">
+                                        <div class="truncate max-w-[200px] font-bold text-slate-900 mx-auto">会議室用Webカメラの追加購入</div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">承認</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-500 border border-slate-200">未対応</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
+                                        <div class="shrink-0 flex items-center justify-center gap-2 w-full">
+                                            <button onclick="openStartConfirm('REQ-0025')" class="px-3 py-1.5 bg-sky-600 text-white text-[11px] font-bold rounded-lg hover:bg-sky-700 transition-colors shadow-sm shrink-0">対応開始</button>
+                                            <a href="/request-detail?id=REQ-0025" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 5 (Approved / Completed) -->
+                                <tr class="hover:bg-white/80 transition-colors">
+                                    <td class="whitespace-nowrap py-4 font-medium text-slate-600 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <a href="/request-detail?id=REQ-0018" class="text-sky-600 hover:text-sky-700 underline underline-offset-2 decoration-sky-600/30 font-bold tracking-tight">REQ-0018</a>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 px-3 align-middle"><span class="font-bold text-slate-900 whitespace-nowrap">田中 太郎</span></td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="text-xs text-slate-600 font-bold">2026-04-08</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">追加購入</span>
+                                    </td>
+                                    <td class="py-4 border-r border-slate-200/50 px-3 align-middle text-center">
+                                        <div class="truncate max-w-[200px] font-bold text-slate-900 mx-auto">レーザーポインターの予備追加</div>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">承認</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 border-r border-slate-200/50 text-center px-3 align-middle">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200">対応済</span>
+                                    </td>
+                                    <td class="whitespace-nowrap py-4 px-3 align-middle text-center">
+                                        <a href="/request-detail?id=REQ-0018" class="px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold rounded-lg hover:bg-slate-800 transition-colors shadow-sm shrink-0">詳細</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -299,20 +364,26 @@
     <div id="confirmModal" class="fixed inset-0 z-[100] hidden">
         <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0" id="confirmModalBackdrop" onclick="closeConfirmModal()"></div>
         <div class="fixed inset-0 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden scale-95 opacity-0 transition-all duration-200" id="confirmModalContent">
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-4 text-slate-800">
-                        <div class="h-10 w-10 shrink-0 bg-sky-100 text-sky-600 flex items-center justify-center rounded-full" id="confirmModalIcon">
-                            <!-- Icon -->
-                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <h3 class="text-lg font-black tracking-tight" id="confirmModalTitle">確認</h3>
+            <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-lg max-h-[88vh] overflow-hidden scale-95 opacity-0 transition-all duration-200 flex flex-col" id="confirmModalContent">
+                <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between shrink-0">
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 tracking-tight" id="confirmModalTitle">確認</h3>
                     </div>
+                    <button type="button" onclick="closeConfirmModal()" class="p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="px-6 py-5 overflow-y-auto custom-scrollbar">
+                    <div id="confirmModalMeta" class="space-y-2 mb-5"></div>
                     <p class="text-sm font-medium text-slate-600 mb-6" id="confirmModalMessage">本当に実行しますか？</p>
-                    <div class="flex gap-3">
-                        <button onclick="closeConfirmModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl transition-colors">キャンセル</button>
-                        <button id="confirmModalExecute" class="flex-1 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">実行する</button>
-                    </div>
+                    <label id="confirmMemoWrap" class="hidden block mb-6">
+                        <span id="confirmMemoLabel" class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">承認メモ</span>
+                        <textarea id="confirmMemo" rows="3" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-sky-500 focus:border-sky-500 block p-3 outline-none font-medium resize-none placeholder:text-slate-400" placeholder="承認理由を入力してください"></textarea>
+                    </label>
+                </div>
+                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2 shrink-0">
+                    <button onclick="closeConfirmModal()" class="h-11 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors">取消</button>
+                    <button id="confirmModalExecute" class="h-11 px-5 rounded-xl bg-slate-900 text-sm font-bold text-white hover:bg-slate-800 transition-colors shadow-sm">確認</button>
                 </div>
             </div>
         </div>
@@ -322,20 +393,26 @@
     <div id="rejectModalList" class="fixed inset-0 z-[100] hidden">
         <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0" id="rejectModalListBackdrop" onclick="closeModal('rejectModalList')"></div>
         <div class="fixed inset-0 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden scale-95 opacity-0 transition-all duration-200" id="rejectModalListContent">
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="h-10 w-10 shrink-0 bg-rose-100 text-rose-600 flex items-center justify-center rounded-full">
-                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-black text-rose-600 tracking-tight">却下する <span id="rejectModalIdDisplay" class="text-sm text-slate-400 align-middle ml-2 font-mono"></span></h3>
+            <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-lg max-h-[88vh] overflow-hidden scale-95 opacity-0 transition-all duration-200 flex flex-col" id="rejectModalListContent">
+                <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between shrink-0">
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900 tracking-tight">却下</h3>
                     </div>
-                    <p class="text-sm font-medium text-slate-600 mb-4">却下する理由（メモ）を入力してください。この内容は申請者にも通知されます。</p>
-                    <textarea id="rejectMemo" rows="4" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-rose-500 focus:border-rose-500 block p-3 outline-none font-medium mb-6 resize-none placeholder:text-slate-400" placeholder="例: 予備の備品がすでに存在するため、新規購入は不要です。"></textarea>
-                    <div class="flex gap-3">
-                        <button onclick="closeModal('rejectModalList')" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl transition-colors">キャンセル</button>
-                        <button onclick="executeReject()" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">却下を確定</button>
-                    </div>
+                    <button type="button" onclick="closeModal('rejectModalList')" class="p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="px-6 py-5 overflow-y-auto custom-scrollbar">
+                    <div id="rejectModalMeta" class="space-y-2 mb-5"></div>
+                    <label class="block mb-6">
+                        <span class="block text-[11px] font-black text-slate-500 uppercase tracking-widest mb-2">却下理由 <span class="text-rose-500">*</span></span>
+                        <textarea id="rejectMemo" rows="4" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-rose-500 focus:border-rose-500 block p-3 outline-none font-medium resize-none placeholder:text-slate-400" placeholder="却下理由を入力してください"></textarea>
+                        <span id="rejectMemoError" class="hidden mt-2 text-[12px] font-bold text-rose-600">却下理由を入力してください。</span>
+                    </label>
+                </div>
+                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2 shrink-0">
+                    <button onclick="closeModal('rejectModalList')" class="h-11 px-5 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors">取消</button>
+                    <button onclick="executeReject()" class="h-11 px-5 rounded-xl bg-slate-900 text-sm font-bold text-white hover:bg-slate-800 transition-colors shadow-sm">確認</button>
                 </div>
             </div>
         </div>
@@ -344,29 +421,140 @@
     <script>
     let currentSuccessMsg = null;
     let currentRejectId = '';
+    const requestData = {
+        'REQ-0024': {
+            id: 'REQ-0024',
+            applicant: '山田 太郎',
+            type: '新規購入',
+            content: '動画編集用ハイスペックPCの購入要望'
+        },
+        'REQ-0020': {
+            id: 'REQ-0020',
+            applicant: '渡辺 翔太',
+            type: '改善要望',
+            content: 'iPad Pro最新モデル'
+        },
+        'REQ-0022': {
+            id: 'REQ-0022',
+            applicant: '中村 健',
+            type: '追加購入',
+            content: 'デュアルモニター用アーム'
+        },
+        'REQ-0025': {
+            id: 'REQ-0025',
+            applicant: '佐藤 美咲',
+            type: '新規購入',
+            content: '会議室用Webカメラの追加購入'
+        },
+        'REQ-0018': {
+            id: 'REQ-0018',
+            applicant: '田中 太郎',
+            type: '追加購入',
+            content: 'レーザーポインターの予備追加'
+        }
+    };
 
-    function confirmAction(title, message, successMessage) {
+    function getRequestData(reqId) {
+        return requestData[reqId] || {
+            id: reqId || 'REQ-0000',
+            applicant: '未設定',
+            type: '未設定',
+            content: '未設定'
+        };
+    }
+
+    function requestMetaHtml(data) {
+        const rows = [
+            ['要望ID', data.id],
+            ['申請者', data.applicant],
+            ['要望種別', data.type],
+            ['要望内容', data.content]
+        ];
+        if(data.approvalStatus) {
+            rows.push(['現在の承認状況', data.approvalStatus]);
+        }
+        return rows.map(([label, value]) => `
+            <div class="flex items-start justify-between gap-4 rounded-xl bg-slate-50 border border-slate-100 px-4 py-3">
+                <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">${label}</span>
+                <span class="text-sm font-bold text-slate-800 text-right">${value}</span>
+            </div>
+        `).join('');
+    }
+
+    function openApprovalConfirm(reqId) {
+        const data = getRequestData(reqId);
+        confirmAction('承認', '', `${data.id} を承認しました`, data, {
+            memoLabel: '承認メモ',
+            memoPlaceholder: '承認理由を入力してください'
+        });
+    }
+
+    function openCompleteConfirm(reqId) {
+        const data = getRequestData(reqId);
+        confirmAction('対応完了', 'この要望を対応済にしますか？', `${data.id} を対応済にしました`, data, {
+            memoLabel: '対応メモ',
+            memoPlaceholder: '対応内容や補足を入力してください'
+        });
+    }
+
+    function openStartConfirm(reqId) {
+        const data = getRequestData(reqId);
+        confirmAction('対応開始', 'この要望の対応を開始しますか？', `${data.id} を対応中にしました`, data, {
+            memoLabel: '対応メモ',
+            memoPlaceholder: '対応内容や補足を入力してください'
+        });
+    }
+
+    function openCancelRejectConfirm(reqId) {
+        const data = getRequestData(reqId);
+        confirmAction('却下取消', '却下を取り消し、承認状況を申請中、対応状況を未対応に戻します。', `${data.id} の却下取消処理が完了しました`, {
+            ...data,
+            approvalStatus: '却下'
+        }, {
+            memoLabel: '取消メモ',
+            memoPlaceholder: '取消理由や補足を入力してください'
+        });
+    }
+
+    function confirmAction(title, message, successMessage, requestInfo, options = {}) {
         document.getElementById('confirmModalTitle').innerText = title;
-        document.getElementById('confirmModalMessage').innerText = message;
+        const messageEl = document.getElementById('confirmModalMessage');
+        messageEl.innerText = message;
+        messageEl.classList.toggle('hidden', !message);
+        document.getElementById('confirmModalMeta').innerHTML = requestInfo ? requestMetaHtml(requestInfo) : '';
+        const memoWrap = document.getElementById('confirmMemoWrap');
+        const memoLabel = document.getElementById('confirmMemoLabel');
+        const memoInput = document.getElementById('confirmMemo');
+        if(options.memoLabel) {
+            memoWrap.classList.remove('hidden');
+            memoLabel.innerText = options.memoLabel;
+            memoInput.placeholder = options.memoPlaceholder || '';
+            memoInput.value = '';
+        } else {
+            memoWrap.classList.add('hidden');
+            memoInput.value = '';
+        }
         currentSuccessMsg = successMessage;
         
         let execBtn = document.getElementById('confirmModalExecute');
         
         if(title.includes('却下')) {
-            execBtn.className = 'flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+            execBtn.className = 'h-11 px-5 rounded-xl bg-slate-900 text-sm font-bold text-white hover:bg-slate-800 transition-colors shadow-sm';
         } else if(title.includes('承認') || title.includes('完了')) {
-            execBtn.className = 'flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+            execBtn.className = 'h-11 px-5 rounded-xl bg-slate-900 text-sm font-bold text-white hover:bg-slate-800 transition-colors shadow-sm';
         } else {
-            execBtn.className = 'flex-1 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm';
+            execBtn.className = 'h-11 px-5 rounded-xl bg-slate-900 text-sm font-bold text-white hover:bg-slate-800 transition-colors shadow-sm';
         }
+        execBtn.textContent = '確認';
 
         execBtn.onclick = function() {
+            const memoValue = memoInput && !memoWrap.classList.contains('hidden') ? memoInput.value.trim() : '';
             closeConfirmModal();
             setTimeout(() => {
                 if(typeof currentSuccessMsg === 'function') {
                     currentSuccessMsg();
                 } else if(currentSuccessMsg) {
-                    alert(currentSuccessMsg);
+                    alert(memoValue ? `${currentSuccessMsg}\nメモを保存しました。` : currentSuccessMsg);
                 }
             }, 300);
         };
@@ -398,13 +586,15 @@
         }, 200);
     }
 
-    function openModal(id, reqId) {
+    function openRequestListModal(id, reqId) {
         if(reqId) {
             currentRejectId = reqId;
-            const displayId = document.getElementById('rejectModalIdDisplay');
-            if(displayId) displayId.innerText = reqId;
+            const rejectMeta = document.getElementById('rejectModalMeta');
+            if(rejectMeta) rejectMeta.innerHTML = requestMetaHtml(getRequestData(reqId));
             const memo = document.getElementById('rejectMemo');
             if(memo) memo.value = '';
+            const error = document.getElementById('rejectMemoError');
+            if(error) error.classList.add('hidden');
         }
         
         const modal = document.getElementById(id);
@@ -424,6 +614,10 @@
                 content.classList.add('scale-100', 'opacity-100');
             }
         }
+    }
+
+    function openRequestRejectModal(reqId) {
+        openRequestListModal('rejectModalList', reqId);
     }
 
     function closeModal(id) {
@@ -446,8 +640,14 @@
     }
 
     function executeReject() {
+        const memo = document.getElementById('rejectMemo');
+        const error = document.getElementById('rejectMemoError');
+        if(!memo || !memo.value.trim()) {
+            if(error) error.classList.remove('hidden');
+            return;
+        }
         closeModal('rejectModalList');
-        setTimeout(() => alert(currentRejectId + ' の却下処理が完了しました。メモを保存しました。'), 300);
+        setTimeout(() => alert(currentRejectId + ' の却下処理が完了しました。却下理由を保存し、申請者への通知メッセージとして使用します。'), 300);
     }
     
     function toggleSidebar() {

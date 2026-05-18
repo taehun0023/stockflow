@@ -159,10 +159,6 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 <h3 class="font-black text-slate-900 tracking-tight">基本予約情報</h3>
                             </div>
-                            <div class="shrink-0 flex items-center gap-2">
-                                <input type="checkbox" id="immediateLend" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-slate-300 rounded transition-all cursor-pointer">
-                                <label for="immediateLend" class="text-xs font-bold text-slate-700 cursor-pointer">即時貸出</label>
-                            </div>
                         </div>
                         <div class="grid grid-cols-2 gap-x-12 gap-y-6">
                             <div>
@@ -174,21 +170,18 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">利用数量</label>
-                                <div class="shrink-0 flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100 max-w-[100px]">
-                                    <input type="number" id="qtyInput" value="1" min="1" class="bg-transparent border-none outline-none text-[15px] font-black text-slate-900 w-full text-center">
-                                    <span class="text-xs font-bold text-slate-500">台</span>
-                                </div>
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">数量</label>
+                                <p class="text-[15px] font-black text-slate-900">1 台</p>
                             </div>
                             <div>
-                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">利用開始日時 (予定)</label>
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">利用開始日時（予定）</label>
                                 <div class="shrink-0 flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <input type="text" id="startTime" value="2026-04-20 09:00" placeholder="日時を選択" class="bg-transparent border-none outline-none text-[15px] font-black text-slate-900 w-full">
                                 </div>
                             </div>
                             <div>
-                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">利用終了日時 (予定)</label>
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1.5">利用終了日時（予定）</label>
                                 <div class="shrink-0 flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <input type="text" id="endTime" value="2026-04-25 18:00" placeholder="日時を選択" class="bg-transparent border-none outline-none text-[15px] font-black text-rose-600 w-full font-bold">
